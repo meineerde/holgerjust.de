@@ -104,7 +104,7 @@ module MiddlemanCasperHelpers
   end
 
   def twitter_url
-    "https://twitter.com/share?text=#{ERB::Util.u current_article.title}" \
+    "https://twitter.com/intent/tweet?text=#{ERB::Util.u current_article.title}" \
       "&url=#{ERB::Util.u current_article_url}"
   end
   def facebook_url
