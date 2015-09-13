@@ -161,4 +161,5 @@ module MiddlemanCasperHelpers
       nil
     end
   end
+  alias :twitter_title :og_title
 end
