@@ -46,5 +46,7 @@
           %a{href: home_path}= blog_settings.name
           &copy;
           = Time.now.year
+          |
+          = link_to 'Impressum', '/impressum/'
 
     = javascript_include_tag :application
