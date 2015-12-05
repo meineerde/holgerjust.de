@@ -12,6 +12,10 @@ cover: cover.jpg
     .main-header-content.inner
       %h1.page-title= blog_settings.name
       %h2.page-description= blog_settings.description
+      %section.byline
+        %span= "by #{blog_author.name}"
+        = partial(:profile_links)
+
   %a.scroll-down.icon-arrow-left{href: '#content', data: {offset: '-45'}}
     %span.hidden Scroll Down
 

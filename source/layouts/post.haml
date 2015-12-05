@@ -41,6 +41,7 @@
             .author-meta
               - if blog_author.location.present?
                 %span.author-location.icon-location= blog_author.location
+              = partial(:profile_links)
               - if blog_author.website.present?
                 %span.author-link.icon-link
                   %a{href: blog_author.website}= blog_author.website

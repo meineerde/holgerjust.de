@@ -1,5 +1,28 @@
 @import 'vendor/casper';
 @import 'syntax';
+@import 'icons';
+
+.byline {
+  font-size: 1.8rem;
+  line-height: 1;
+  color: rgba(255, 255, 255, 0.8);
+
+  a { color: rgba(255, 255, 255, 0.8); }
+
+  > span {
+    display: block;
+    margin: 2em 0 1rem 0
+  }
+}
+
+.profile-links a {
+  margin: 1rem .8rem 1.6rem .8rem;
+  text-decoration: none;
+}
+
+.author-meta span.hidden {
+  display: none;
+}
 
 .license {
   display: block;
