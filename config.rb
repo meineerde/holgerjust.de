@@ -51,23 +51,53 @@ end
 
 set :casper, {
   blog: {
-    url: 'http://www.example.com',
-    name: 'Middleman',
-    description: 'Makes developing websites simple.',
-    date_format: '%d %B %Y',
+    url: 'https://holgerjust.de',
+    name: 'Everything is broken',
+    description: 'Stories about Life and Technology',
+    date_format: '%Y-%m-%d',
     navigation: true,
-    logo: nil, # Optional
+    logo: 'home.svg',
     default_license: 'cc_by_sa'
   },
   author: {
-    name: 'Middleman',
-    bio: nil, # Optional
-    location: nil, # Optional
-    website: nil, # Optional
-    gravatar_email: nil # Optional
+    name: 'Holger Just',
+    email: email = '&#104;&#101;&#108;&#108;&#111;&#64;&#104;&#111;&#108;&#103;&#101;&#114;&#106;&#117;&#115;&#116;&#46;&#100;&#101;',
+    bio: markdown(<<-MARKDOWN.gsub(/^[ ]*/, ' ').strip),
+      I spend most of my life pressing buttons on a computer to change its
+      pattern of lights. I wear many hats and change them regularly. I want to
+      undestand the world.
+    MARKDOWN
+    bio_full: markdown(<<-MARKDOWN.gsub(/^[ ]*/, ' ').strip),
+      I follow the traditional DevOps school by creating, maintaining, and
+      operating software systems using Ruby on Rails, Chef or whatever it takes.
+      If you want to reach me, <a href="mailto:#{email}">write me an email</a>.
+    MARKDOWN
+    location: 'Berlin, Germany',
+    website: 'https://holgerjust.de',
+    avatar_url: '//www.gravatar.com/avatar/b2c6828974b9192f619c6206d4d20f1d',
+    twitter: 'meineerde',
+    profile_links: {
+      twitter: {
+        name: 'Twitter',
+        link: 'https://twitter.com/meineerde'
+      },
+      github: {
+        name: 'GitHub',
+        link: 'https://github.com/meineerde'
+      },
+      stackoverflow: {
+        name: 'Stack Overflow',
+        link: 'https://stackoverflow.com/users/421705/holger-just'
+      },
+      xing: {
+        name: 'XING',
+        link: 'https://www.xing.com/profile/Holger_Just'
+      }
+    }
   },
   navigation: {
-    "Home" => "/"
+    'Home' => '/',
+    'Impressum' => '/impressum/'
   }
 }
 
