@@ -85,10 +85,15 @@ module MiddlemanCasperHelpers
   end
 
   def gravatar(size = 68)
-    md5 = Digest::MD5.hexdigest(blog_author.gravatar_email.downcase)
-    "https://www.gravatar.com/avatar/#{md5}?size=#{size}"
+    if blog_author.avatar_url.present?
+      "#{blog_author.avatar_url}?size=#{size}"
+    else
+      md5 = Digest::MD5.hexdigest(blog_author.gravatar_email.downcase)
+      "https://www.gravatar.com/avatar/#{md5}?size=#{size}"
+    end
   end
   def gravatar?
+    blog_author.avatar_url.present? ||
     blog_author.gravatar_email.present?
   end
 
