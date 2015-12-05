@@ -5,9 +5,6 @@ cover: cover.jpg
 
 %header.main-header{cover}
   %nav.main-nav.overlay.clearfix
-    - if blog_settings.logo.present?
-      %a.blog-logo{href: home_path}
-        = image_tag blog_settings.logo, alt: blog_settings.name
     - if blog_settings.navigation
       %a.menu-button.icon-menu{href: '#'}
         %span.word Menu
