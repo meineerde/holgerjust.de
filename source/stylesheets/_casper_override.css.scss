@@ -1,0 +1,25 @@
+// Override default caspar styles for our own blog
+
+// Declutter navigation
+.nav li:before,
+.nav li a:after,
+.nav li.nav-current a:after {
+  content: none;
+}
+
+// Disable pointless animations
+.home-template .page-title,
+.home-template .page-description {
+  -webkit-animation: none 0s;
+  animation: none 0s;
+}
+
+// Golden ratio for post header images
+.post-head.main-header {
+    height: 61vh;
+    min-height: 180px;
+}
+
+.author-bio {
+  text-align: left;
+}
