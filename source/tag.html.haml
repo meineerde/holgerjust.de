@@ -14,7 +14,7 @@ per_page: 6
   .vertical
     .main-header-content.inner
       %h1.page-title= tagname
-      %h2.page-description A #{page_articles.count}-post collection
+      %h2.page-description= pluralize(page_articles.count, 'post')
 
 %main#content.content{role: :main}
   = partial(:page_articles,

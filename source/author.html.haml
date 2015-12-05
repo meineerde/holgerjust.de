@@ -26,7 +26,7 @@ per_page: 6
     = partial(:profile_links)
     - if blog_author.website.present?
       %span.author-link.icon-link
-        %a{href: blog_author.website}= blog_author.website
+        %a{href: blog_author.website}= blog_author.website.sub(%r{^https?://}, '')
     %span.author-stats
       %i.icon-stats
       = pluralize(blog.articles.count, 'post')

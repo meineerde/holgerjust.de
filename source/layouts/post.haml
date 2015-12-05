@@ -13,6 +13,7 @@
       %header.post-header
         %h1.post-title= current_article.title
         %section.post-meta
+          published at
           %time.post-date{datetime: current_article.date.strftime('%Y-%m-%d')}
             = current_article.date.strftime(blog_settings.date_format)
           - if tags?
@@ -29,13 +30,13 @@
           %h4
             %a{href: author_path}= blog_author.name
 
-          %p
           - if blog_author.bio.present?
             = blog_author.bio
           - else
-            Read
-            %a{href: author_path} more posts
-            by this author.
+            %p
+              Read
+              %a{href: author_path} more posts
+              by this author.
 
           - if blog_author.location.present? || blog_author.website.present?
             .author-meta
@@ -44,7 +45,7 @@
               = partial(:profile_links)
               - if blog_author.website.present?
                 %span.author-link.icon-link
-                  %a{href: blog_author.website}= blog_author.website
+                  %a{href: blog_author.website}= blog_author.website.sub(%r{^https?://}, '')
 
         %section.share
           %h4 Share this post
