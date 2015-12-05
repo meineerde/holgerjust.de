@@ -25,6 +25,35 @@
   display: none;
 }
 
+.left {
+  float: left;
+  margin: 0 1rem .75rem 0;
+}
+.right {
+  float: right;
+  padding: 0 0 .75rem 1rem;
+}
+
+.post-content figure {
+  p {
+    margin: 0;
+  }
+
+  img {
+    padding: .4em 0;
+  }
+}
+
+figcaption {
+  display: block;
+
+  font-style: normal;
+  text-align: center;
+
+  font-size: 1.4rem;
+  line-height: 1.75em;
+}
+
 .license {
   display: block;
   width: 45%;
