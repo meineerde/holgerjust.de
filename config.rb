@@ -1,3 +1,23 @@
+helpers do
+  def figure(caption, figure_options = {}, caption_options = {}, &block)
+    @_out_buf << content_tag(:figure, figure_options) do
+      [
+        markdown(&block),
+        content_tag(:figcaption, markdown(caption), caption_options)
+      ].inject(&:concat)
+    end
+  end
+
+  def unicode_escape(str)
+    str.unpack("U*").map { |c| "&##{c};"}.join
+  end
+
+  def markdown(source=nil, &block)
+    source = capture(&block) if block_given?
+    Tilt['markdown'].new{ source }.render
+  end
+end
+
 ###
 # Blog settings
 ###
