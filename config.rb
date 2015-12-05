@@ -36,7 +36,8 @@ set :casper, {
     description: 'Makes developing websites simple.',
     date_format: '%d %B %Y',
     navigation: true,
-    logo: nil # Optional
+    logo: nil, # Optional
+    default_license: 'cc_by_sa'
   },
   author: {
     name: 'Middleman',
