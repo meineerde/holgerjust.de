@@ -14,7 +14,7 @@ cover_license: "[CC Zero 1.0](https://unsplash.com/license) by [José Martín](h
       %h1.page-title= blog_settings.name
       %h2.page-description= blog_settings.description
       %section.byline
-        %span= "by #{blog_author.name}"
+        %span= "by #{link_to blog_author.name, author_path}"
         = partial(:profile_links)
 
   %a.scroll-down.icon-arrow-left{href: '#content', data: {offset: '-45'}}
