@@ -4,6 +4,7 @@
     %span.hidden Close
   %ul
     - navigation.try(:each) do |label, href|
+      - href = href.call if href.respond_to?(:call)
       - css_class = %W(nav-#{label.parameterize})
       - css_class << "nav-current" if current_page.url == href
       %li{class: css_class.join(' '), role: :presentation}

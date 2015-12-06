@@ -104,7 +104,8 @@ set :casper, {
   },
   navigation: {
     'Home' => '/',
-    'Impressum' => '/impressum/'
+    'About Me' => ->{ author_path },
+    'Legal' => '/impressum/'
   }
 }
 
