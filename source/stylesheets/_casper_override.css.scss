@@ -1,10 +1,14 @@
 // Override default caspar styles for our own blog
 
 // Declutter navigation
-.nav li:before,
-.nav li a:after,
-.nav li.nav-current a:after {
-  content: none;
+.nav {
+  font-family: "Open Sans", sans-serif;
+
+  li:before,
+  li a:after,
+  li.nav-current a:after {
+    content: none;
+  }
 }
 
 // Disable pointless animations
