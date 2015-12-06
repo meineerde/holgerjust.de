@@ -201,3 +201,15 @@ configure :build do
   # Or use a different image path
   # set :http_prefix, "/Content/images/"
 end
+
+activate :deploy do |deploy|
+  deploy.method = :rsync
+  deploy.host   = 'holgerjust.de'
+  deploy.path   = '/var/www/virtual/holger/holgerjust.de'
+
+  deploy.clean  = true # remove orphaned files on remote host
+  deploy.flags  = '-az'
+
+  # Build middleman before deploying
+  deploy.build_before = true
+end
