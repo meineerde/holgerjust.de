@@ -61,16 +61,11 @@ set :casper, {
   },
   author: {
     name: 'Holger Just',
-    email: email = '&#104;&#101;&#108;&#108;&#111;&#64;&#104;&#111;&#108;&#103;&#101;&#114;&#106;&#117;&#115;&#116;&#46;&#100;&#101;',
+    email: '&#104;&#101;&#108;&#108;&#111;&#64;&#104;&#111;&#108;&#103;&#101;&#114;&#106;&#117;&#115;&#116;&#46;&#100;&#101;',
     bio: markdown(<<-MARKDOWN.gsub(/^[ ]*/, ' ').strip),
       I spend most of my life pressing buttons on a computer to change its
-      pattern of lights. I wear many hats and change them regularly. I want to
-      undestand the world.
-    MARKDOWN
-    bio_full: markdown(<<-MARKDOWN.gsub(/^[ ]*/, ' ').strip),
-      I follow the traditional DevOps school by creating, maintaining, and
-      operating software systems using Ruby on Rails, Chef or whatever it takes.
-      If you want to reach me, <a href="mailto:#{email}">write me an email</a>.
+      pattern of lights. I support the DevOps culture by creating,
+      maintaining, and operating software systems. I want to undestand the world.
     MARKDOWN
     location: 'Berlin, Germany',
     website: 'https://holgerjust.de',
@@ -79,10 +74,12 @@ set :casper, {
     profile_links: {
       twitter: {
         name: 'Twitter',
+        user: 'meineerde',
         link: 'https://twitter.com/meineerde'
       },
       github: {
         name: 'GitHub',
+        user: 'meineerde',
         link: 'https://github.com/meineerde'
       },
       stackoverflow: {

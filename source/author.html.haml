@@ -1,5 +1,6 @@
 ---
 pageable: true
+cover: cover.jpg
 per_page: 6
 ---
 
@@ -19,8 +20,28 @@ per_page: 6
         %span.hidden #{blog_author.name}'s Picture
   %h1.author-title= blog_author.name
   .author-bio
-    = blog_author.bio
-    = blog_author.bio_full
+    :markdown
+      I'm a software developer and operations engineer from Berlin,
+      Germany. I want to bridge the gap between those functions by building and
+      maintaining a [DevOps culture](https://www.oreilly.com/ideas/what-is-devops-yet-again)
+      throughout my work.
+
+      I am a contributor to [Redmine](https://www.redmine.org) and was project
+      lead of [ChiliProject](https://www.chiliproject.org). I am a contributer
+      to [Chef](https://www.chef.io) and have created and maintain several [Chef
+      cookbooks](https://github.com/meineerde-cookbooks/) and a few general-pupose
+      [Ruby Gems](https://rubygems.org/profiles/meineerde).
+
+      I strongly believe in the values of Open Source and strive to be an
+      integral part of the community by not only providing source code but also
+      advice, help, and organisational support to advance the status quo.
+
+      If you want to contact me, preferrably send an email to
+      <a href="mailto:#{blog_author.email}">#{blog_author.email}</a> in either
+      German or English. I am
+      [#{blog_author.profile_links[:github][:user]}](#{blog_author.profile_links[:github][:link]}) on GitHub and
+      [@#{blog_author.profile_links[:twitter][:user]}](#{blog_author.profile_links[:twitter][:link]}) on Twitter.
+      I try to help people on [Stack Overflow](#{blog_author.profile_links[:stackoverflow][:link]}).
   .author-meta
     - if blog_author.location.present?
       %span.author-location.icon-location= blog_author.location
