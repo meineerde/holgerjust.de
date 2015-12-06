@@ -47,7 +47,7 @@
           &copy;
           = Time.now.year
           |
-          = link_to 'Impressum', '/impressum/'
+          = link_to 'Impressum | Contact | Legal', '/impressum/'
         %section.license
           = partial("licenses/#{current_page.data.license || blog_settings.default_license}")
           - if current_page.data.cover_license.present?
