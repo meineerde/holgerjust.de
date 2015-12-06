@@ -3,7 +3,7 @@ helpers do
     @_out_buf << content_tag(:figure, figure_options) do
       [
         markdown(&block),
-        content_tag(:figcaption, markdown(caption), caption_options)
+        content_tag(:figcaption, markdown(caption, true), caption_options)
       ].inject(&:concat)
     end
   end
@@ -12,9 +12,19 @@ helpers do
     str.unpack("U*").map { |c| "&##{c};"}.join
   end
 
-  def markdown(source=nil, &block)
+  def markdown(source=nil, single_line = false, &block)
     source = capture(&block) if block_given?
-    Tilt['markdown'].new{ source }.render
+    html = Tilt['markdown'].new{ source }.render
+
+    if single_line
+      doc = Nokogiri::HTML::DocumentFragment.parse(html)
+      doc.search('p').each do |node|
+        node.replace node.children
+      end
+      html = doc.to_html
+    end
+
+    html.strip
   end
 end
 
