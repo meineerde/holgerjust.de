@@ -1,0 +1,20 @@
+---
+noindex: true
+---
+# Compress files on the fly
+AddOutputFilterByType DEFLATE text/html text/plain text/xml text/css application/javascript text/javascript
+
+# Aggressively cache assets
+ExpiresActive On
+ExpiresDefault "access plus 1 year"
+
+# Cache only very shortly on non cache-busted files
+ExpiresByType text/html "access plus 1 hour"
+ExpiresByType text/xml "access"
+
+RewriteEngine On
+
+# Require SSL
+RewriteCond %{HTTPS} !=on
+RewriteCond %{ENV:HTTPS} !=on
+RewriteRule .* https://%{SERVER_NAME}%{REQUEST_URI} [R=301,L]
