@@ -105,7 +105,7 @@ set :casper, {
     bio: markdown(<<-MARKDOWN.gsub(/^[ ]*/, ' ').strip),
       I spend most of my life pressing buttons on a computer to change its
       pattern of lights. I support the DevOps culture by creating,
-      maintaining, and operating software systems. I want to undestand the world.
+      maintaining, and operating software systems. I want to understand the world.
     MARKDOWN
     location: 'Berlin, Germany',
     website: 'https://holgerjust.de',
