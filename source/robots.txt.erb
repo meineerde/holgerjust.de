@@ -1,3 +1,3 @@
 User-agent: *
 Allow: /
-Sitemap: <%= url_for 'sitemap.xml' %>
+Sitemap: <%= URI.join(casper[:blog][:url], url_for('sitemap.xml')) %>
