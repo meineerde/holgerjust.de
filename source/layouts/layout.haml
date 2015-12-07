@@ -51,7 +51,6 @@
         %section.license
           = partial("licenses/#{current_page.data.license || blog_settings.default_license}")
           - if current_page.data.cover_license.present?
-            | Cover image
-            = markdown(current_page.data.cover_license, true)
+            = '| ' + markdown(current_page.data.cover_license)
 
     = javascript_include_tag :application
