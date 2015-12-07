@@ -49,7 +49,7 @@ set :haml, {
   escape_attrs: :once
 }
 set :markdown_engine, :redcarpet
-set :markdown_options, fenced_code_blocks: true, smartypants: true, footnotes: true, tables: true
+set :markdown_options, fenced_code_blocks: true, smartypants: true, footnotes: true, tables: true, with_toc_data: true, no_intra_emphasis: true
 set :markdown, markdown_options
 activate :syntax, line_numbers: true
 
