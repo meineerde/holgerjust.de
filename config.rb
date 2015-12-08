@@ -14,9 +14,9 @@ helpers do
 
   def markdown(source=nil, single_line = nil, &block)
     source = capture(&block) if block_given?
-    html = Tilt['markdown'].new(markdown_options){ source }.render
+    html = Tilt['markdown'].new(markdown_options){ source.to_s }.render
 
-    single_line = !source.include?("\n") if single_line.nil?
+    single_line = !source.to_s.include?("\n") if single_line.nil?
     if single_line
       doc = Nokogiri::HTML::DocumentFragment.parse(html)
       doc.search('p').each do |node|
