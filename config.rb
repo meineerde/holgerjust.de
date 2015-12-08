@@ -113,9 +113,9 @@ set :casper, {
     }
   },
   navigation: {
-    'Home' => '/',
+    'Home' => ->{ url_for '/index.html' },
     'About Me' => ->{ author_path },
-    'Legal' => '/impressum/'
+    'Legal' => -> { url_for '/impressum.html' }
   }
 }
 
