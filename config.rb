@@ -30,32 +30,13 @@ helpers do
 end
 
 ###
-# Helpers
+# Markdown settings (early to use it in settings)
 ###
 
-# Automatic image dimensions on image_tag helper
-activate :automatic_image_sizes
-
-# Reload the browser automatically whenever files change
-activate :livereload
-
-# Pretty URLs - http://middlemanapp.com/basics/pretty-urls/
-activate :directory_indexes
-
-# Middleman-Syntax - https://github.com/middleman/middleman-syntax
-set :haml, {
-  ugly: true,
-  escape_attrs: :once
-}
 set :markdown_engine, :redcarpet
 set :markdown_options, fenced_code_blocks: true, smartypants: true, footnotes: true, tables: true, with_toc_data: true, no_intra_emphasis: true
 set :markdown, markdown_options
 activate :syntax, line_numbers: true
-
-set :css_dir, 'stylesheets'
-set :js_dir, 'javascripts'
-set :images_dir, 'images'
-set :partials_dir, 'partials'
 
 ###
 # Blog settings
@@ -183,6 +164,31 @@ end
 # Proxy pages (http://middlemanapp.com/basics/dynamic-pages/)
 # proxy "/this-page-has-no-template.html", "/template-file.html", locals: {
 #  which_fake_page: "Rendering a fake page with a local variable" }
+
+###
+# Helpers
+###
+
+# Automatic image dimensions on image_tag helper
+activate :automatic_image_sizes
+
+# Reload the browser automatically whenever files change
+activate :livereload
+
+# Pretty URLs - http://middlemanapp.com/basics/pretty-urls/
+activate :directory_indexes
+
+# Middleman-Syntax - https://github.com/middleman/middleman-syntax
+set :haml, {
+  ugly: true,
+  escape_attrs: :once
+}
+
+set :css_dir, 'stylesheets'
+set :js_dir, 'javascripts'
+set :images_dir, 'images'
+set :partials_dir, 'partials'
+
 
 # Build-specific configuration
 configure :build do
