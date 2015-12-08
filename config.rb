@@ -204,6 +204,11 @@ configure :build do
   # set :http_prefix, "/Content/images/"
 end
 
+after_build do
+  # rename file after build
+  File.rename 'build/.htaccess.apache', 'build/.htaccess'
+end
+
 activate :deploy do |deploy|
   deploy.method = :rsync
   deploy.host   = 'holgerjust.de'
