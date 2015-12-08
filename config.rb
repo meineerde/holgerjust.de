@@ -27,7 +27,6 @@ helpers do
 
     html.strip
   end
-  alias_method :md, :markdown
 end
 
 ###
