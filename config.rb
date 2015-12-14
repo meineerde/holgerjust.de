@@ -124,6 +124,16 @@ page '/sitemap.xml', layout: false
 
 ignore '/partials/*'
 
+# Ignore draft articles and their associated images
+drafts_dir = File.expand_path('../source/drafts', __FILE__)
+ignore '/drafts/*'
+Dir["#{drafts_dir}/*/*"].each do |draft|
+  draft_article = draft
+    .sub(/\A#{Regexp.escape drafts_dir}\//, '')
+    .sub(/\.[^\/]+\z/, '')
+  ignore "/images/#{draft_article}/*"
+end
+
 ready do
   blog.tags.each do |tag, articles|
     proxy "/tag/#{tag.downcase.parameterize}/feed.xml", '/feed.xml', layout: false do
