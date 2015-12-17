@@ -1,10 +1,10 @@
 @font-face {
   font-family: 'icons';
-  src: url('../fonts/icons.eot?14158976');
-  src: url('../fonts/icons.eot?14158976#iefix') format('embedded-opentype'),
-       url('../fonts/icons.woff?14158976') format('woff'),
-       url('../fonts/icons.ttf?14158976') format('truetype'),
-       url('../fonts/icons.svg?14158976#icons') format('svg');
+  src: url('../fonts/icons.eot?30442297');
+  src: url('../fonts/icons.eot?30442297#iefix') format('embedded-opentype'),
+       url('../fonts/icons.woff?30442297') format('woff'),
+       url('../fonts/icons.ttf?30442297') format('truetype'),
+       url('../fonts/icons.svg?30442297#icons') format('svg');
   font-weight: normal;
   font-style: normal;
 }
@@ -24,18 +24,10 @@
   -moz-osx-font-smoothing: grayscale;
 }
 
-.icon-github:before { content: '\e800'; } /* '' */
-.icon-stackoverflow:before { content: '\e801'; } /* '' */
-.icon-link:before { content: '\e802'; } /* '' */
-.icon-twitter:before { content: '\e803'; } /* '' */
-.icon-feed:before { content: '\e804'; } /* '' */
-.icon-menu:before { content: '\e805'; } /* '' */
 .icon-location:before {
-  content: '\e806';
   margin-left: 0;
   margin-right: .25em;
-} /* '' */
-.icon-arrow-left:before { content: '\e808'; } /* '' */
-.icon-google-plus:before { content: '\e809'; } /* '' */
-.icon-facebook:before { content: '\e80a'; } /* '' */
-.icon-xing:before { content: '\e80b'; } /* '' */
+}
+.icon-stackoverflow:before { content: '\f60a'; }
+.icon-github:before { content: '\f60b'; }
+.icon-xing:before { content: '\f60c'; }
