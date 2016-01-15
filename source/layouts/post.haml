@@ -49,13 +49,13 @@
 
         %section.share
           %h4 Share this post
-          %a.icon-twitter{href: twitter_url, onclick: "window.open(this.href, 'twitter-share', 'width=550,height=235');return false;"}
+          %a.icon-twitter{href: twitter_url, rel: 'nofollow', onclick: "window.open(this.href, 'twitter-share', 'width=550,height=235');return false;"}
             %span.hidden Twitter
-          %a.icon-facebook{href: facebook_url, onclick: "window.open(this.href, 'facebook-share','width=580,height=296');return false;"}
+          %a.icon-facebook{href: facebook_url, rel: 'nofollow', onclick: "window.open(this.href, 'facebook-share','width=580,height=296');return false;"}
             %span.hidden Facebook
-          %a.icon-google-plus{href: google_plus_url, onclick: "window.open(this.href, 'google-plus-share', 'width=490,height=530');return false;"}
+          %a.icon-google-plus{href: google_plus_url, rel: 'nofollow', onclick: "window.open(this.href, 'google-plus-share', 'width=490,height=530');return false;"}
             %span.hidden Google+
-          %a.icon-mail{href: mail_url}
+          %a.icon-mail{href: mail_url, rel: 'nofollow'}
             %span.hidden Email
 
   %aside.read-next
