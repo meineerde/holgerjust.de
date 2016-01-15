@@ -11,8 +11,7 @@ Frankfurter Allee 53<br>
 10247 Berlin<br>
 GERMANY
 
-Website: <%= link_to blog_author.website.sub(%r{^https?://}, ''), blog_author.website %><br>
-E-Mail: <a href="mailto:<%= blog_author.email %>"><%= blog_author.email %></a>
+<p><%= author_email_link %></p>
 
 Diese Daten dürfen nicht zu Werbezwecken genutzt werden.<br>
 This data may not be used for advertising purposes.

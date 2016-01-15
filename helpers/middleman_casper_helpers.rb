@@ -128,6 +128,39 @@ module MiddlemanCasperHelpers
   def author_path
     "#{blog.options.prefix.to_s}/author/#{blog_author.name.parameterize}/"
   end
+  def author_email_link
+    raw_email = blog_author.email.to_s.scan(/&#\d+;/).map{|c| c[2..-2].to_i}.pack('U*')
+
+    # We emit the email address as HTML encoded ROT47 string
+    email = raw_email.tr('!-~', 'P-~!-O').unpack('U*').map{ |code| "&##{code.to_s};"}.join
+
+    <<-HTML.tap { |s| s.gsub!(/^#{s.scan(/^[ \t]+(?=\S)/).min}/, '') }.html_safe
+      E-Mail:
+      <script type="text/javascript">
+        (function() {
+          function decodeHTMLEntities(str) {
+            if(str && typeof str === 'string') {
+              var e = document.createElement('div');
+              e.innerHTML = str;
+              str = e.innerHTML;
+              e.remove();
+            }
+            return str;
+          }
+          function encodeHTMLEntities(str) {
+            var buf = [];
+            for (var i=str.length-1;i>=0;i--) {
+              buf.unshift(['&#', str[i].charCodeAt(), ';'].join(''));
+            }
+            return buf.join('');
+          };
+          str = encodeHTMLEntities(decodeHTMLEntities("#{email}").replace(/[!-~]/g,function(c){return String.fromCharCode(126>=(c=c.charCodeAt(0)+47)?c:c-94);}));
+          document.write("<" + "a h" + "ref=\\\"mai" + "lto:" + str + "\\\">" + str + "</" + "a>");
+        })()
+      </script>
+      <noscript><em>(Please enable JavaScript to show the email address)</em></noscript>
+    HTML
+  end
 
   def og_type
     if is_blog_article?
