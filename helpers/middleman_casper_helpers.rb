@@ -98,14 +98,21 @@ module MiddlemanCasperHelpers
   end
 
   def twitter_url
-    "https://twitter.com/share?text=#{current_article.title}" \
-      "&url=#{current_article_url}"
+    "https://twitter.com/share?text=#{ERB::Util.u current_article.title}" \
+      "&url=#{ERB::Util.u current_article_url}"
   end
   def facebook_url
-    "https://www.facebook.com/sharer/sharer.php?u=#{current_article_url}"
+    "https://www.facebook.com/sharer/sharer.php?" \
+      "u=#{ERB::Util.u current_article_url}"
   end
   def google_plus_url
-    "https://plus.google.com/share?url=#{current_article_url}"
+    "https://plus.google.com/share?" \
+      "url=#{ERB::Util.u current_article_url}"
+  end
+  def mail_url
+    "mailto:?to=" \
+      "&subject=#{ERB::Util.u current_article.title}" \
+      "&body=#{ERB::Util.u "Check out this article. I think you'll find it of interest.\r\n\r\n" + current_article_url.to_s}"
   end
 
   def feed_path

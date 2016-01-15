@@ -1,7 +1,7 @@
 <?xml version="1.0" standalone="no"?>
 <!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
 <svg xmlns="http://www.w3.org/2000/svg">
-<metadata>Copyright (C) 2015 by original authors @ fontello.com</metadata>
+<metadata>Copyright (C) 2016 by original authors @ fontello.com</metadata>
 <defs>
 <font id="icons" horiz-adv-x="512" >
 <font-face font-family="icons" font-weight="400" font-stretch="normal" units-per-em="512" ascent="480" descent="-32" />
@@ -18,6 +18,7 @@
 <glyph glyph-name="stackoverflow" unicode="&#xf60a;" d="m265 80v-43l-202-1v43z m69 99v-201l0-10v0h-324l-10 0h0v211h35v-177h265v177h34z m-265-26l201-18-4-43-201 19z m19 91l195-53-11-41-195 52z m47 99l174-102-22-38-174 103z m103 95l113-167-35-24-114 166z m129 42l35-199-43-8-34 200z" horiz-adv-x="402.3" />
 <glyph glyph-name="github" unicode="&#xf60b;" d="m183 133q0-12-4-24t-12-22-21-9-20 9-13 22-3 24 3 23 13 22 20 9 21-9 12-22 4-23z m183 0q0-12-4-24t-12-22-21-9-21 9-12 22-3 24 3 23 12 22 21 9 21-9 12-22 4-23z m45 0q0 34-19 58t-54 24q-11 0-55-6-21-3-45-3t-45 3q-44 6-56 6-34 0-53-24t-20-58q0-26 9-44t23-30 35-17 40-8 43-2h48q23 0 42 2t40 8 35 17 23 30 9 44z m64 50q0-59-17-95-11-22-30-38t-40-24-49-14-49-6-48-1q-22 0-40 0t-42 4-44 9-39 14-35 23-24 33q-18 35-18 95 0 68 39 113-8 23-8 49 0 33 15 62 31 0 54-11t54-36q42 10 88 10 43 0 80-9 30 24 54 35t54 11q14-29 14-62 0-25-7-48 38-46 38-114z" horiz-adv-x="475.4" />
 <glyph glyph-name="xing" unicode="&#xf60c;" d="m171 289q-3-5-74-130-8-13-18-13h-69q-6 0-9 5t0 10l73 128q0 0 0 0l-46 80q-4 6-1 11 3 4 10 4h68q11 0 19-13z m230 184q3-5 0-11l-151-267v0l96-176q3-5 0-10-3-4-9-4h-68q-12 0-19 12l-97 178q5 9 152 269 7 13 18 13h69q6 0 9-4z" horiz-adv-x="402.3" />
+<glyph glyph-name="mail" unicode="&#xf60d;" d="m512 277v-227q0-19-13-32t-33-13h-420q-19 0-33 13t-13 32v227q13-14 29-25 103-70 142-98 16-12 26-19t27-14 32-7h0q15 0 32 7t27 14 26 19q49 35 142 98 17 11 29 25z m0 84q0-22-14-43t-35-35q-107-75-134-93-2-2-12-9t-15-11-15-9-16-8-15-2h0q-7 0-15 2t-16 8-15 9-15 11-12 9q-26 18-75 52t-59 41q-18 12-33 33t-16 39q0 22 12 37t34 15h420q19 0 32-14t14-32z" horiz-adv-x="512" />
 </font>
 </defs>
 </svg>
