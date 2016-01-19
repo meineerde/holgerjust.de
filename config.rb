@@ -76,7 +76,6 @@ set :casper, {
     description: 'Stories about Life and Technology',
     date_format: '%Y-%m-%d',
     navigation: true,
-    logo: 'home.svg',
     default_license: 'cc_by_sa'
   },
   author: {

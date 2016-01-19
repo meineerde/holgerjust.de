@@ -3,6 +3,11 @@
 @import 'syntax';
 @import 'icons';
 
+.home-button {
+  @extend .menu-button;
+  float: left;
+}
+
 .byline {
   font-size: 1.8rem;
   line-height: 1;

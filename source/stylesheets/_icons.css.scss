@@ -1,10 +1,10 @@
 @font-face {
   font-family: 'icons';
-  src: url('../fonts/icons.eot?30442297');
-  src: url('../fonts/icons.eot?30442297#iefix') format('embedded-opentype'),
-       url('../fonts/icons.woff?30442297') format('woff'),
-       url('../fonts/icons.ttf?30442297') format('truetype'),
-       url('../fonts/icons.svg?30442297#icons') format('svg');
+  src: url('../fonts/icons.eot?82832280');
+  src: url('../fonts/icons.eot?82832280#iefix') format('embedded-opentype'),
+       url('../fonts/icons.woff?82832280') format('woff'),
+       url('../fonts/icons.ttf?82832280') format('truetype'),
+       url('../fonts/icons.svg?82832280#icons') format('svg');
   font-weight: normal;
   font-style: normal;
 }
@@ -32,3 +32,4 @@
 .icon-github:before { content: '\f60b'; }
 .icon-xing:before { content: '\f60c'; }
 .icon-mail:before { content: '\f60d'; }
+.icon-angle-left:before { content: '\f60e'; }
