@@ -135,7 +135,6 @@ module MiddlemanCasperHelpers
     email = raw_email.tr('!-~', 'P-~!-O').unpack('U*').map{ |code| "&##{code.to_s};"}.join
 
     <<-HTML.tap { |s| s.gsub!(/^#{s.scan(/^[ \t]+(?=\S)/).min}/, '') }.html_safe
-      E-Mail:
       <script type="text/javascript">
         (function() {
           function decodeHTMLEntities(str) {
