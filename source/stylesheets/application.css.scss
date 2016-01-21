@@ -6,6 +6,20 @@
 .home-button {
   @extend .menu-button;
   float: left;
+  transition: none;
+}
+
+/* When the navigation is closed */
+.nav-opened .home-button {
+  color: #fff;
+  border-color: rgba(255, 255, 255, 0.6);
+  background: transparent;
+}
+/* When the navigation is closed and there is no cover image */
+.nav-opened .no-cover .home-button {
+  color: #9EABB3;
+  border-color: #BFC8CD;
+  background: transparent;
 }
 
 .byline {

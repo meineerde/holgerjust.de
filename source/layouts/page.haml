@@ -1,7 +1,8 @@
 = wrap_layout :layout do
   %header.main-header.post-head{cover}
     %nav.main-nav.clearfix{class: cover? ? 'overlay' : nil}
-      %a.home-button.icon-angle-left{href: home_path} Home
+      %a.home-button.icon-angle-left{href: home_path}
+        %span.word Home
       - if blog_settings.navigation
         %a.menu-button.icon-menu{href: '#'}
           %span.word Menu
