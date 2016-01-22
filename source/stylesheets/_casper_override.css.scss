@@ -33,3 +33,10 @@
 .post-footer .share .icon-mail:hover {
   color: #111;
 }
+
+@media only screen and (max-width: 900px) {
+  // Nicer blog footer on narrow screens
+  .read-next-story:last-of-type .post {
+    padding-bottom: 8rem;
+  }
+}
