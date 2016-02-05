@@ -26,6 +26,8 @@
       %meta{name: "twitter:title", content: og_title}
     %meta{name: "twitter:description", content: page_description}
     %meta{name: "twitter:url", content: URI.join(blog_settings.url, current_page.url)}
+    %meta{name: "twitter:dnt", content: 'on'}
+    %meta{name: "twitter:widgets:csp", content: 'on'}
     - if cover?
       %meta{name: "twitter:image:src", content: URI.join(blog_settings.url, image_path(current_page.data.cover))}
 
