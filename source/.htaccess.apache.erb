@@ -2,16 +2,42 @@
 noindex: true
 layout: false
 ---
-# Compress files on the fly
-AddOutputFilterByType DEFLATE text/html text/plain text/xml text/css application/javascript text/javascript
-
 # Aggressively cache assets
 ExpiresActive On
 ExpiresDefault "access plus 1 year"
 
-# Cache only very shortly on non cache-busted files
-ExpiresByType text/html "access plus 1 hour"
-ExpiresByType text/xml "access"
+# Shorter cache for HTML and XML
+# Also force revalidation
+<FilesMatch \.(html|xml)(\.gz)?$>
+  ExpiresDefault "access plus 1 day"
+  Header append Cache-Control "must-revalidate"
+</FilesMatch>
+
+# Set correct headers for pre-gziped content
+<FilesMatch \.css\.gz$>
+  ForceType text/css
+  Header set Content-Encoding gzip
+</FilesMatch>
+<FilesMatch \.js\.gz$>
+  ForceType text/javascript
+  Header set Content-Encoding gzip
+ </FilesMatch>
+<FilesMatch \.html\.gz$>
+  ForceType text/html
+  Header set Content-Encoding gzip
+</FilesMatch>
+
+# Unset the Vary: Host header inserted by global Uberspace config
+# Append Vary: Accept-Encoding due to optionsl gziped content
+Header set Vary Accept-Encoding
+
+# Add security related headers
+Header set X-Frame-Options "DENY"
+Header set X-Content-Type-Options "nosniff"
+Header set X-XSS-Protection "1; mode=block"
+Header set Strict-Transport-Security "max-age=31536000; includeSubDomains"
+# Have some fun :)
+Header set Made-With-Love "In Berlin"
 
 RewriteEngine On
 
@@ -23,3 +49,8 @@ RewriteRule .* https://<%= URI.parse(casper[:blog][:url]).host %>%{REQUEST_URI} 
 # Ensure we only use the canonical hostname
 RewriteCond %{HTTP_HOST} !=<%= URI.parse(casper[:blog][:url]).host %> [NC]
 RewriteRule .* https://<%= URI.parse(casper[:blog][:url]).host %>%{REQUEST_URI} [R=301,L,QSA]
+
+# Use gziped content if possible
+RewriteCond %{HTTP:Accept-Encoding} \b(x-)?gzip\b
+RewriteCond %{REQUEST_FILENAME}\.gz -s
+RewriteRule ^(.+) /$1\.gz [QSA]
