@@ -1,0 +1,47 @@
+---
+title: Speeding up Git at Planio
+date: 2016-02-05
+lang: :en
+tags: Technology
+canonical: http://plan.io/blog/post/138727862918/speeding-up-git-at-planio
+cover: 2016/speeding-up-git-at-planio/cover.jpg
+cover_license: '[Cover Image](https://unsplash.com/photos/M-H70CDJnDI) by [Jannik Selz](https://unsplash.com/jeydrum), [CC Zero 1.0](https://unsplash.com/license)'
+layout: post
+---
+
+This is a story about how a significant increase in the number of Git repositories at Planio resulted in a noticeable service slowdown and how we were able to not only fix this but to provide a sustained speedup of the whole service.
+
+READMORE
+
+![From sad server to happy server](2016/speeding-up-git-at-planio/planio_speeding-up-git-at-planio.jpg)
+
+At [Planio](https://plan.io), we have always provided [unlimited Git repositories](https://plan.io/subversion-hosting-and-git-hosting/) as part of our [Redmine](https://www.redmine.org) hosting product. In fact, one of the [first open source plugins](https://github.com/planio/redmine-gitosis) to provide full Git hosting integration to Redmine was developed by Planio and subsequently formed the basis of most of the currently popular plugins.
+
+About 6 years later, our internal codebase has changed significantly due to increased customer demand but the basic architecture of our Git service was still the same. At Planio, access to Git is provided over SSH where permissions are enforced by our internal fork of [Gitosis](https://github.com/res0nat0r/gitosis). It has served us well in the past and while the project is not maintained by its original authors anymore, we still use our own patched version due to its small footprint and its general absence of features we don't need anyway.
+
+With Gitosis, access to repositories is provided based on a single configuration file which lists the access permissions of all users and their repositories. It also handles the management of SSH keys which are concatenated to a single `authorized_keys` file for the SSH server. Each time, someone created or deleted a repository on Planio or when someone uploaded a new SSH key, we start a background job to synchronize the Gitosis configuration file with the new data.
+
+Unfortunately, it all broke down once we started to create new Git repositories for all new Planio accounts by default to make it easier to use Planio with the awesome [Sparkleshare synchronisation tool](http://plan.io/blog/post/136664403343/a-data-safe-dropbox-alternative-git). Before this change, only users who explicitly wanted to use a Git repositoriy created one in their account, resulting in a "manageable" number of repositories overall. With this change however, we now had almost doubled the number of configured Git repositories in a couple of weeks' time.
+
+Unfortunately, this resulted in a serious slowdown for many Git users while our backend servers where peaking at a [system load](https://en.wikipedia.org/wiki/Load_(computing)) of 120 with most of the time spent in Gitosis before any actual Git interaction. Not good, not good at all...
+
+![A concerned cat](2016/speeding-up-git-at-planio/concerned_cat.gif)
+
+Digging into the code, I quickly identified the [lookup method](https://github.com/res0nat0r/gitosis/blob/b04fbb1df75c7f1f3f6bb4b4b37565f4a2ede54d/gitosis/group.py#L4-L37) in Gitosis which determines which repositories a user has access to as the main culprit. It turned out that the method loops over the whole list of repositories multiple times, resulting in a algorithmic complexity of O(2n<sup>2</sup>) in our case. As we have about doubled the number of configured repositories, the lookup now took four times as long for each single Git operation. With only limited CPU power available, the processes began stepping on each others toes waiting for CPU time on their own. And as we were constantly adding new Git repositories, this problem only worsened over time.
+
+The solution to this problem came with inspiration from some old [pull request](https://github.com/chiliproject/chiliproject/pull/229) I started on the now defunct ChiliProject which was intended to unify the authentication and authorization implementations of external services like Subversion. If we can provide a simple API in Redmine which can quickly tell us if a certain user has the permission to read or write a repository, we can use this in Gitosis with a single HTTP call per Git operation.
+
+Fortunately, we already used sane conventions to name repositories and users in the form of uniquely named SSH keys in Gitosis. This allows us to efficiently determine the affected Redmine user and project for each Git operation. As we have all the code to check for arbitrary permissions already in place in Redmine, all the new API endpoint has to do is to identify the correct user and check their permission in the respective project. This is a very common and quite optimized task in Redmine - even more so when utilizing the builtin Rails cache to improve response times for repeated authorization requests.
+
+On Gitosis' side, I was able to almost completely replace the existing authentication mechanism with a single HTTP call to Redmine and just checking the response. Besides being overall much faster, it also reduces latency during repository creation as users don't have to wait anymore until the Gitosis config file was updated. But the best result? With this change, I was able to remove about half of the overall codebase in Gitosis. Seeing this at the end of a code review warms every developer's heart. No code is better than *no* code.
+
+> `30 files changed, 283 insertions(+), 1924 deletions(-)`
+
+Developing the API in Redmine and integrating it into Gitosis took me about 3 days. This included extensive correctness and performance tests to ensure that we do in fact enforce the defined permissions and can do this fast. In the end, we are now able to respond to an authorization request in about 300 ms end-to-end which is about 20 times faster than we were able to pull off during peak usage last week with the old authentication mechanism.
+
+<blockquote class="twitter-tweet" data-lang="en" data-align="center" data-cards="hidden"><p lang="en" dir="ltr">The hard work on our Git hosting infrastructure pays off: Overall Git access is now 20x faster than last week! <a href="https://t.co/fmM0b50DF5">https://t.co/fmM0b50DF5</a></p>&mdash; Planio (@planio) <a href="https://twitter.com/planio/status/694548969096114177">February 2, 2016</a></blockquote>
+<script async src="//platform.twitter.com/widgets.js" charset="utf-8"></script>
+
+Directly after the deployment of the new authentication mechanism, the load of the backend servers dropped back from about 40 to just below 1, which is nice because we now get much less of these alarming monitoring pings about melting servers.
+
+*This post originally appeared on [Planio's blog](<%= current_page.data.canonical %>) on February 5, 2016.*
