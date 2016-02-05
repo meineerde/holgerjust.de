@@ -128,53 +128,12 @@ module MiddlemanCasperHelpers
   def author_path
     "#{blog.options.prefix.to_s}/author/#{blog_author.name.parameterize}/"
   end
-  def author_email_link(span_class = nil)
+  def author_email
+    # The email address is stored encoded in the blog sources
     raw_email = blog_author.email.to_s.scan(/&#\d+;/).map{|c| c[2..-2].to_i}.pack('U*')
+    obfuscated_email = raw_email.tr('!-~', 'P-~!-O').unpack('U*').map{ |code| "&##{code.to_s};"}.join
 
-    # We emit the email address as HTML encoded ROT47 string
-    email = raw_email.tr('!-~', 'P-~!-O').unpack('U*').map{ |code| "&##{code.to_s};"}.join
-
-    if span_class
-      writer = <<-JAVASCRIPT.tap { |s| s.gsub!(/^#{s.scan(/^[ \t]+(?=\S)/).min}/, '') }.html_safe
-        document.addEventListener("DOMContentLoaded", function() {
-          Array.prototype.forEach.call(document.getElementsByClassName("#{span_class}"), function(element){ element.innerHTML = link; });
-        }, false);
-      JAVASCRIPT
-    else
-      writer = 'document.write(link);'
-    end
-
-    script = <<-HTML.tap { |s| s.gsub!(/^#{s.scan(/^[ \t]+(?=\S)/).min}/, '') }
-      <script type="text/javascript">
-        (function() {
-          function decodeHTMLEntities(str) {
-            if(str && typeof str === 'string') {
-              var e = document.createElement('div');
-              e.innerHTML = str;
-              str = e.innerHTML;
-              e.remove();
-            }
-            return str;
-          }
-          function encodeHTMLEntities(str) {
-            var buf = [];
-            for (var i=str.length-1;i>=0;i--) {
-              buf.unshift(['&#', str[i].charCodeAt(), ';'].join(''));
-            }
-            return buf.join('');
-          };
-          var str = encodeHTMLEntities(decodeHTMLEntities("#{email}").replace(/[!-~]/g,function(c){return String.fromCharCode(126>=(c=c.charCodeAt(0)+47)?c:c-94);}));
-          var link = "<" + "a h" + "ref=\\\"mai" + "lto:" + str + "\\\">" + str + "</" + "a>";
-          #{writer}
-        })()
-      </script>
-    HTML
-    script << '<noscript><em>(Please enable JavaScript to show the email address)</em></noscript>' unless span_class
-    script.html_safe
-  end
-
-  def author_email_span(span_class)
-    %{<span class="#{span_class}"><em>(Please enable JavaScript to show the email address)</em></span>}.html_safe
+    %{<span class="hidden-email" data-email="#{obfuscated_email}"><em>(Please enable JavaScript to show the email address)</em></span>}.html_safe
   end
 
   def og_type
