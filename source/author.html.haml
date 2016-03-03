@@ -16,42 +16,23 @@ cover_license: '[Cover Image](https://unsplash.com/photos/2ShvY8Lf6l0) by [Lukas
 %section.author-profile.inner
   - if gravatar?
     %figure.author-image
-      .img{style: "background-image: url(#{gravatar(114)})"}
-        %span.hidden #{blog_author.name}'s Picture
-  %h1.author-title= blog_author.name
-  .author-bio
-    :markdown
-      I'm a software developer and operations engineer from Berlin,
-      Germany. I want to bridge the gap between those functions by building and
-      maintaining a [DevOps culture](https://www.oreilly.com/ideas/what-is-devops-yet-again)
-      throughout my work.
-
-      I am a contributor to [Redmine](https://www.redmine.org) and was project
-      lead of [ChiliProject](https://www.chiliproject.org). I am a contributer
-      to [Chef](https://www.chef.io) and have created and maintain several [Chef
-      cookbooks](https://github.com/meineerde-cookbooks/) and a few general-pupose
-      [Ruby Gems](https://rubygems.org/profiles/meineerde).
-
-      I strongly believe in the values of Open Source and strive to be an
-      integral part of the community by not only providing source code but also
-      advice, help, and organisational support to advance the status quo.
-
-      If you want to contact me, preferrably send an email to #{author_email}
-      in either German or English. I am
-      [#{blog_author.profile_links[:github][:user]}](#{blog_author.profile_links[:github][:link]}) on GitHub and
-      [@#{blog_author.profile_links[:twitter][:user]}](#{blog_author.profile_links[:twitter][:link]}) on Twitter.
-      I try to help people on [Stack Overflow](#{blog_author.profile_links[:stackoverflow][:link]}).
+      .img{style: "background-image: url(#{gravatar(author, size: 114)})"}
+        %span.hidden #{blog_author(author).name}'s Picture
+  %h1.author-title= blog_author(author).name
+  .author-bio= partial("author/#{author.parameterize}")
   .author-meta
-    - if blog_author.location.present?
-      %span.author-location.icon-location= blog_author.location
-    = partial(:profile_links)
-    - if blog_author.website.present?
+    - if blog_author(author).location.present?
+      %span.author-location.icon-location= blog_author(author).location
+    = partial(:profile_links, locals: {author: author})
+    - if blog_author(author).website.present?
       %span.author-link.icon-link
-        %a{href: blog_author.website}= blog_author.website.sub(%r{^https?://}, '')
+        %a{href: blog_author.website}= blog_author(author).website.sub(%r{^https?://}, '')
     %span.author-stats
       %i.icon-stats
-      = pluralize(blog.articles.count, 'post')
+      =# TODO: articles per author
+      = pluralize(locals['articles'].count, 'post')
 
 %main#content.content{role: :main}
+  =# TODO: articles per author
   = partial(:page_articles,
             locals: { page_articles: page_articles, paginate: paginate })

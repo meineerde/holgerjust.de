@@ -42,8 +42,14 @@ module MiddlemanCasperHelpers
     truncate_words(body, length: words, omission: '')
   end
 
-  def blog_author
-    OpenStruct.new(casper[:author])
+  def blog_author(author_name = nil)
+    author_name ||= current_resource.data.author
+    author_name ||= blog_settings.author
+
+    author_name = author_name.to_s.parameterize
+
+    author = casper[:authors].find { |author| author[:name].parameterize == author_name }
+    OpenStruct.new(author)
   end
 
   def blog_settings
@@ -84,17 +90,17 @@ module MiddlemanCasperHelpers
     page.data.cover.present?
   end
 
-  def gravatar(size = 68)
-    if blog_author.avatar_url.present?
-      "#{blog_author.avatar_url}?size=#{size}"
+  def gravatar(author = nil, size: 68)
+    if blog_author(author).avatar_url.present?
+      "#{blog_author(author).avatar_url}?size=#{size}"
     else
-      md5 = Digest::MD5.hexdigest(blog_author.gravatar_email.downcase)
+      md5 = Digest::MD5.hexdigest(blog_author(author).gravatar_email.downcase)
       "https://www.gravatar.com/avatar/#{md5}?size=#{size}"
     end
   end
-  def gravatar?
-    blog_author.avatar_url.present? ||
-    blog_author.gravatar_email.present?
+  def gravatar?(author = nil)
+    blog_author(author).avatar_url.present? ||
+    blog_author(author).gravatar_email.present?
   end
 
   def twitter_url
@@ -125,12 +131,12 @@ module MiddlemanCasperHelpers
   def home_path
     "#{blog.options.prefix.to_s}/"
   end
-  def author_path
-    "#{blog.options.prefix.to_s}/author/#{blog_author.name.parameterize}/"
+  def author_path(author = nil)
+    "#{blog.options.prefix.to_s}/author/#{blog_author(author).name.parameterize}/"
   end
-  def author_email
+  def author_email(author = nil)
     # The email address is stored encoded in the blog sources
-    raw_email = blog_author.email.to_s.scan(/&#\d+;/).map{|c| c[2..-2].to_i}.pack('U*')
+    raw_email = blog_author(author).email.to_s.scan(/&#\d+;/).map{|c| c[2..-2].to_i}.pack('U*')
     obfuscated_email = raw_email.tr('!-~', 'P-~!-O').unpack('U*').map{ |code| "&##{code.to_s};"}.join
 
     %{<span class="hidden-email" data-email="#{obfuscated_email}"><em>(Please enable JavaScript to show the email address)</em></span>}.html_safe

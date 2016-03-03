@@ -67,6 +67,13 @@ activate :blog do |blog|
   blog.paginate = true
   blog.per_page = 10
   blog.page_link = "page/{num}"
+
+  blog.custom_collections = {
+    author: {
+      link: '/author/:author.html',
+      template: '/author.html'
+    }
+  }
 end
 
 set :casper, {
@@ -76,41 +83,46 @@ set :casper, {
     description: 'Stories about Life and Technology',
     date_format: '%Y-%m-%d',
     navigation: true,
-    default_license: 'cc_by_sa'
+    default_license: 'cc_by_sa',
+    author: 'Holger Just'
   },
-  author: {
-    name: 'Holger Just',
-    email: '&#104;&#101;&#108;&#108;&#111;&#64;&#104;&#111;&#108;&#103;&#101;&#114;&#106;&#117;&#115;&#116;&#46;&#100;&#101;',
-    bio: markdown(<<-MARKDOWN.gsub(/^[ ]*/, ' ').strip),
-      I spend most of my life pressing buttons on a computer to change its
-      pattern of lights. I support the DevOps culture by creating,
-      maintaining, and operating software systems. I want to understand the world.
-    MARKDOWN
-    location: 'Berlin, Germany',
-    website: 'https://holgerjust.de',
-    avatar_url: '//www.gravatar.com/avatar/b2c6828974b9192f619c6206d4d20f1d',
-    twitter: 'meineerde',
-    profile_links: {
-      twitter: {
-        name: 'Twitter',
-        user: 'meineerde',
-        link: 'https://twitter.com/meineerde'
-      },
-      github: {
-        name: 'GitHub',
-        user: 'meineerde',
-        link: 'https://github.com/meineerde'
-      },
-      stackoverflow: {
-        name: 'Stack Overflow',
-        link: 'https://stackoverflow.com/users/421705/holger-just'
-      },
-      xing: {
-        name: 'XING',
-        link: 'https://www.xing.com/profile/Holger_Just'
+  authors: [
+    # When adding an author here, be sure to also create a matching author site
+    # in source/partials/author
+    {
+      name: 'Holger Just',
+      email: '&#104;&#101;&#108;&#108;&#111;&#64;&#104;&#111;&#108;&#103;&#101;&#114;&#106;&#117;&#115;&#116;&#46;&#100;&#101;',
+      bio: markdown(<<-MARKDOWN.gsub(/^[ ]*/, ' ').strip),
+        I spend most of my life pressing buttons on a computer to change its
+        pattern of lights. I support the DevOps culture by creating,
+        maintaining, and operating software systems. I want to understand the world.
+      MARKDOWN
+      location: 'Berlin, Germany',
+      website: 'https://holgerjust.de',
+      avatar_url: '//www.gravatar.com/avatar/b2c6828974b9192f619c6206d4d20f1d',
+      twitter: 'meineerde',
+      profile_links: {
+        twitter: {
+          name: 'Twitter',
+          user: 'meineerde',
+          link: 'https://twitter.com/meineerde'
+        },
+        github: {
+          name: 'GitHub',
+          user: 'meineerde',
+          link: 'https://github.com/meineerde'
+        },
+        stackoverflow: {
+          name: 'Stack Overflow',
+          link: 'https://stackoverflow.com/users/421705/holger-just'
+        },
+        xing: {
+          name: 'XING',
+          link: 'https://www.xing.com/profile/Holger_Just'
+        }
       }
     }
-  },
+  ],
   navigation: {
     'Home' => ->{ url_for '/index.html' },
     'About Me' => ->{ author_path },
@@ -140,8 +152,6 @@ ready do
       @articles = articles
     end
   end
-
-  proxy "/author/#{blog_author.name.parameterize}.html", '/author.html', ignore: true
 end
 
 ###

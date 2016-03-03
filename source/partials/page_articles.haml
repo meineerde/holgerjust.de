@@ -12,8 +12,8 @@
         = link_to '&raquo; Read more', article, class: 'read-more'
     %footer.post-meta
       - if gravatar?
-        %img.author-thumb{src: gravatar(24), alt: blog_author.name, nopin: 'nopin'}
-      %a{href: author_path}= blog_author.name
+        %img.author-thumb{src: gravatar(article.data.author, size: 24), alt: blog_author(article.data.author).name, nopin: 'nopin'}
+      %a{href: author_path(article.data.author)}= blog_author(article.data.author).name
       - if tags?(article)
         on #{tags(article)}
       %time.post-date{datetime: article.date.strftime('%Y-%m-%d')}

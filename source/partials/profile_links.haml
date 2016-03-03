@@ -1,4 +1,4 @@
 %span.profile-links
-  - blog_author.profile_links.each do |name, opts|
+  - Array(blog_author(author).profile_links).each do |name, opts|
     %a{class: "icon-#{name}", href: opts[:link]}
       %span.hidden= opts[:name]
