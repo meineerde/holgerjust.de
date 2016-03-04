@@ -152,6 +152,8 @@ ready do
       @articles = articles
     end
   end
+
+  proxy '/.htaccess', '/.htaccess.html', ignore: true
 end
 
 ###
@@ -208,7 +210,6 @@ set :js_dir, 'javascripts'
 set :images_dir, 'images'
 set :partials_dir, 'partials'
 
-
 # Build-specific configuration
 configure :build do
   # For example, change the Compass output style for deployment
@@ -227,11 +228,6 @@ configure :build do
 
   # Or use a different image path
   # set :http_prefix, "/Content/images/"
-end
-
-after_build do
-  # rename file after build
-  File.rename 'build/.htaccess.apache', 'build/.htaccess'
 end
 
 activate :deploy do |deploy|
