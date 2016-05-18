@@ -52,6 +52,8 @@ RewriteRule .* https://<%= URI.parse(casper[:blog][:url]).host %>%{REQUEST_URI} 
 RewriteCond %{HTTP_HOST} !=<%= URI.parse(casper[:blog][:url]).host %> [NC]
 RewriteRule .* https://<%= URI.parse(casper[:blog][:url]).host %>%{REQUEST_URI} [R=301,L,QSA]
 
+RewriteRule ^favicon.ico$ /images/favicon.ico
+
 # Use gziped content if possible
 RewriteCond %{HTTP:Accept-Encoding} \b(x-)?gzip\b
 RewriteCond %{REQUEST_FILENAME}\.gz -s
