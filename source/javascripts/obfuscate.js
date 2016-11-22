@@ -30,4 +30,4 @@
       element.innerHTML = link;
     });
   }, false);
-})()
+})();

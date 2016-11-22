@@ -1,0 +1,2 @@
+#= require casper
+#= require obfuscate
