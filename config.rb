@@ -146,9 +146,9 @@ Dir["#{drafts_dir}/*/*"].each do |draft|
 end
 
 ready do
-  blog.tags.each do |tag, articles|
-    proxy "/tag/#{tag.downcase.parameterize}/feed.xml", '/feed.xml', layout: false do
-      @tagname = tag
+  blog.tags.each do |tagname, articles|
+    proxy "/tag/#{tagname.downcase.parameterize}/feed.xml", '/feed.xml', layout: false do
+      @tagname = tagname
       @articles = articles
     end
   end
