@@ -11,6 +11,8 @@ layout: post
 
 Es sind die kleinen Dinge, die einem viel Zeit sparen können. Bei Word geht es (zumindest, wenn man Vorlagen einsetzt) häufig darum, alle Felder mit z.B. Referenzen zu aktualisieren.
 
+READMORE
+
 Leider wird das von Microsoft nicht direkt ermöglicht. Es kann natürlich auch sein, dass ich es nur nicht gefunden habe.
 
 Solange man keine Felder in Kopf- und/oder Fußzeilen einsetzt reicht ja ein klassisches Strg+A gefolgt von F9, was sich aber nur auf den "normalen" Text auswirkt.

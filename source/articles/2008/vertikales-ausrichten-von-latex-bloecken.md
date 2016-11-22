@@ -11,6 +11,8 @@ layout: post
 
 Der oder die Eine oder Andere wird vielleicht mal drauf stoßen, dass man in LaTeX-Tabellen die vertikale Ausrichtung von Elementen nicht direkt bestimmen kann. Das ist sehr ärgerlich, wenn man zum Beispiel Grafiken in einer Tabelle setzen will und sie vertikal zentriert in den Zellen ausrichten will.
 
+READMORE
+
 Hier hilft eine sogenannte Minipage. Das ist eine syntaktische Möglichkeit, eigene Boxen zu definieren, an denen man dann definieren kann, welche Ausrichtung ihre Inhalte gegenüber der Grundlinie haben. Das kann dann etwa so aussehen:
 
 ```latex

@@ -11,6 +11,8 @@ layout: post
 
 Opensolaris has done some huge steps towards being usable by a normal person. Sadly there are still some things lacking sane defaults which I try to provide here. I will try to update this post if I stumble over more of these hiccups.
 
+READMORE
+
 ## Correct colors on exit of an ncurses program
 
 If an ncurses program (like `nano`) exits, the default xterm-color does not properly restore the colors of the terminal. The background color is shown in a dark gray. For a quick relieve you can issue a short
