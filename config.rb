@@ -126,7 +126,7 @@ set :casper, {
   navigation: {
     'Home' => ->{ url_for '/index.html' },
     'About Me' => ->{ author_path },
-    'Legal' => -> { url_for '/impressum.html' }
+    'Contact' => -> { url_for '/impressum.html' }
   }
 }
 
