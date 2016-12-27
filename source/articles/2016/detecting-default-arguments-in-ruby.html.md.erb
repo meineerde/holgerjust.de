@@ -1,0 +1,115 @@
+---
+title: Detecting default arguments in Ruby
+date: 2016-12-27 20:08 UTC
+author: Holger Just
+lang: :en
+tags: Technology
+cover: 2016/detecting-default-arguments-in-ruby/cover.jpg
+cover_license: '[Cover Image](https://unsplash.com/photos/p3kpqGBRPok) by [Tim Mossholder](https://unsplash.com/@timmossholder), [CC Zero 1.0](https://unsplash.com/license)'
+layout: post
+---
+
+When defining a method in Ruby, you can define default values for optional parameters. When calling the method, Ruby sets the default value to the local variable *as if* the user would have provided this argument. This automatism is really useful to support optional parameters with sensible defaults without having to think much about this. It even works exactly the same with the new keyword arguments introduced in Ruby 2.0.
+
+READMORE
+
+Given this method:
+
+```ruby
+def debug(required, optional = 'value')
+  puts "required: #{required}"
+  puts "optional: #{optional}"
+end
+```
+
+When calling the method, you get the usual results:
+
+```ruby
+debug('foo')
+# require: foo
+# optional: value
+
+debug('bar', 'overwritten')
+# require: bar
+# optional: overwritten
+```
+
+A common default is to use `nil` as the default value and assume it as the ommitted value. You can however use any value you like, including the result of a method call. This works great most of the time, that is, well, until you really have to test if an argument was actually provided by the caller or not since any value (including `nil`) would be considered valid.
+
+Luckily, there are several idioms which allow to detcet whether there was actually an argument passed to an optional parameter:
+
+## A Special Flag Variable
+
+The first and most self-contained option is to use a guard flag in the method definition.
+
+```ruby
+def with_flag(required, optional = ommitted = true)
+  puts "required: #{required}"
+  puts "ommitted: #{ommitted.inspect}"
+
+  if ommitted
+    puts "no optional given"
+  else
+    puts "optional: #{optional}"
+  end
+end
+```
+
+Now when calling this method, when actually passing a value to the `optional` parameter, it will be set normally. The default part, i.e. the `ommitted = true` will not be executed here. Instead, ommitted will be initialized with `nil`.
+
+On the other hand, when omitting the argument and calling the method as `with_flag('value')`, the default part will be executed and `ommitted` as well as `optional` will be set to `true`. This allows to determine whether an argument was passed by checking the `ommitted` flag. If it is `nil`, an argument was passed. If it is the final default value (`true` in our example) it was however ommitted:
+
+```ruby
+with_flag('foo')
+# required: foo
+# ommitted: true
+# no optional given
+
+with_flag('foo', 'value')
+# required: foo
+# ommitted: nil
+# optional: value
+```
+
+## Special Default Value
+
+Another optiona is to use a different special default value which we have determined to never represent a valid value. Again, this is only required if we can not come up with a "normal" default value like `nil`, `0` or an empty array or hash.
+
+In our example, we define a constant called `NO_VALUE` with an empty Object instance and use it as a default value. Since the object is not equal to any other value, you can use it as a special flag to determine that no value was passed and just compare the argument to the same `NO_VALUE` object.
+
+```ruby
+NO_VALUE = Object.new
+# => #<Object:0x007fd87284af38>
+
+def with_value(required, optional = NO_VALUE)
+  puts "required: #{required}"
+
+  if optional == NO_VALUE
+    puts "no optional given: #{optional}"
+  else
+    puts "optional: #{optional}"
+  end
+end
+```
+
+When calling the method, the comparisions work as expected. As you can see, the default value is initialized with the `NO_VALUE` constant when not passing the optional argument and thus is considered to be ommitted.
+
+```ruby
+with_value('bar')
+# required: foo
+# no optional given: #<Object:0x007fd87284af38>
+
+with_value('foo', 'value')
+# required: foo
+# optional: value
+```
+
+## Which variant to use?
+
+Which option to use depends a bit on which traits of the code should be emphasized.
+
+The first option can read a bit nicer in the method body and does not require the permanent allocation of an additional object to represent the empty default value. However, the code and its detailed semantics can be a bit suprising for people not accustomed to this pattern. Which can result in people misusing the method.
+
+The second option however is pretty clear and follows the common pattern of assigning a known default value to a parameter. However, we always need to be aware of the value and often have to handle it specifically to e.g. pass it as `nil` to other methods. Since this pattern should be used only if `nil` itself is not a suitable default value, this would be required anyways though.
+
+As such, for one-off methods, the first option is quicker to write and has clear-enough semantics to experienced Ruby developers. The second option provides a more traditional method interface for the potential cost of a bit more checking in the method body. With that in mind, which ever variant you use, try to use one of these methods consistently throughout your module to allow people reading your code to recognize the pattern and thus to reduce the congitive load required to understand what the code does.
