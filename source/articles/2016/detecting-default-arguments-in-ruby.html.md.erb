@@ -34,46 +34,60 @@ debug('bar', 'overwritten')
 # optional: overwritten
 ```
 
-A common default is to use `nil` as the default value and assume it as the ommitted value. You can however use any value you like, including the result of a method call. This works great most of the time, that is, well, until you really have to test if an argument was actually provided by the caller or not since any value (including `nil`) would be considered valid.
+A commonly used default value for optional parameters is `nil`. You can however use any value you like, including the result of a method call. This works great most of the time. That is, well, until you really have to test if an argument was actually provided by the caller or not since any value (including `nil`) would be considered valid.
 
-Luckily, there are several idioms which allow to detcet whether there was actually an argument passed to an optional parameter:
+A real-world example of such a method is [`Hash#fetch`](https://ruby-doc.org/core/Hash.html#method-i-fetch). This method allows to fetch the value for a given key from a Hash object. If the key is in the hash, its value is returned. If the key could not be found however, the method will either return a given default value or raise an error if no default value was provided. Since any Ruby object including `false` or `nil` are potentially valid default values, we can't just define a static default value here:
+
+```ruby
+hash = {foo: :bar}
+hash.fetch(:foo)
+# => :bar
+hash.fetch(:missing)
+# => KeyError: key not found: :missing
+hash.fetch(:missing, 'my default value')
+# => "my default value"
+hash.fetch(:missing, nil)
+# => nil
+```
+
+Luckily, there are several idioms which allow to detect whether there was actually an argument passed to an optional parameter which I will describe below.
 
 ## A Special Flag Variable
 
 The first and most self-contained option is to use a guard flag in the method definition.
 
 ```ruby
-def with_flag(required, optional = ommitted = true)
+def with_flag(required, optional = omitted = true)
   puts "required: #{required}"
-  puts "ommitted: #{ommitted.inspect}"
+  puts "omitted: #{omitted.inspect}"
 
-  if ommitted
-    puts "no optional given"
+  if omitted
+    puts 'no optional given'
   else
     puts "optional: #{optional}"
   end
 end
 ```
 
-Now when calling this method, when actually passing a value to the `optional` parameter, it will be set normally. The default part, i.e. the `ommitted = true` will not be executed here. Instead, ommitted will be initialized with `nil`.
+Now when calling this method, when actually passing a value to the `optional` parameter, it will be set normally. The default part, i.e. the `omitted = true` will not be executed here. Instead, omitted will be initialized with `nil`.
 
-On the other hand, when omitting the argument and calling the method as `with_flag('value')`, the default part will be executed and `ommitted` as well as `optional` will be set to `true`. This allows to determine whether an argument was passed by checking the `ommitted` flag. If it is `nil`, an argument was passed. If it is the final default value (`true` in our example) it was however ommitted:
+On the other hand, when omitting the argument and calling the method as `with_flag('value')`, the default part will be executed and `omitted` as well as `optional` will be set to `true`. This allows to determine whether an argument was passed by checking the `omitted` flag. If it is `nil`, an argument was passed. If it is the final default value (`true` in our example) it was however omitted:
 
 ```ruby
 with_flag('foo')
 # required: foo
-# ommitted: true
+# omitted: true
 # no optional given
 
 with_flag('foo', 'value')
 # required: foo
-# ommitted: nil
+# omitted: nil
 # optional: value
 ```
 
 ## Special Default Value
 
-Another optiona is to use a different special default value which we have determined to never represent a valid value. Again, this is only required if we can not come up with a "normal" default value like `nil`, `0` or an empty array or hash.
+Another option is to use a different special default value which we have determined to never represent a valid value. Again, this is only required if we can not come up with a "normal" default value like `nil`, `0` or an empty array or hash.
 
 In our example, we define a constant called `NO_VALUE` with an empty Object instance and use it as a default value. Since the object is not equal to any other value, you can use it as a special flag to determine that no value was passed and just compare the argument to the same `NO_VALUE` object.
 
@@ -92,7 +106,7 @@ def with_value(required, optional = NO_VALUE)
 end
 ```
 
-When calling the method, the comparisions work as expected. As you can see, the default value is initialized with the `NO_VALUE` constant when not passing the optional argument and thus is considered to be ommitted.
+When calling the method, the comparisons work as expected. As you can see, the default value is initialized with the `NO_VALUE` constant when not passing the optional argument and thus is considered to be omitted.
 
 ```ruby
 with_value('bar')
@@ -104,12 +118,45 @@ with_value('foo', 'value')
 # optional: value
 ```
 
+## Using a splat parameter
+
+A third options is to use a splat parameter in the method's definition. This accepts an unlimited number of optional arguments and provided them to the method body in an array.
+
+```ruby
+def with_splat(*args)
+  # Enforce the actually intended method interface by raising an error if too
+  # many arguments were passed to the method.
+  unless 1..2.cover?(*args.size)
+    raise ArgumentError, "wrong number of arguments (#{args.length} for 1..2)"
+  end
+
+  puts "required: #{args[0]}"
+  if args.size == 1
+    puts 'no optional given'
+  else
+    puts "optional: #{args[1]}"
+  end
+end
+```
+
+By inspecting the `args` array, we can test whether we got an `optional` argument or not. If the array is has exactly 1 element, no optional argument was passed. If it has 2 elements, we use the second one as our `optional` value.
+
+This variant more or less resembles what Ruby itself does in its implementation of the [`Hash#fetch`](https://ruby-doc.org/core/Hash.html#method-i-fetch) method. Since the method is implemented in C, arguments are extracted and validated from the `ARGV` array passed to the method which resembles our `args` array.
+
 ## Which variant to use?
 
 Which option to use depends a bit on which traits of the code should be emphasized.
 
-The first option can read a bit nicer in the method body and does not require the permanent allocation of an additional object to represent the empty default value. However, the code and its detailed semantics can be a bit suprising for people not accustomed to this pattern. Which can result in people misusing the method.
+The first option with the `omitted` flag can read a bit nicer in the method body and does not require the permanent allocation of an additional object to represent the empty default value. However, the code and its detailed semantics can be a bit surprising for people not accustomed to this pattern. Which can result in people misusing the method.
 
-The second option however is pretty clear and follows the common pattern of assigning a known default value to a parameter. However, we always need to be aware of the value and often have to handle it specifically to e.g. pass it as `nil` to other methods. Since this pattern should be used only if `nil` itself is not a suitable default value, this would be required anyways though.
+The second option with the special default value however is pretty clear and follows the common pattern of assigning a known default value to a parameter. By defining our own null value, we can elegantly work around the issue of `nil` being a valid intended value. However, we always need to be aware of the special null value and often have to handle it in special way to e.g. pass it as `nil` to other methods. Since this pattern should be used only if `nil` itself is not a suitable default value, this would be required anyways though.
 
-As such, for one-off methods, the first option is quicker to write and has clear-enough semantics to experienced Ruby developers. The second option provides a more traditional method interface for the potential cost of a bit more checking in the method body. With that in mind, which ever variant you use, try to use one of these methods consistently throughout your module to allow people reading your code to recognize the pattern and thus to reduce the congitive load required to understand what the code does.
+The third option of using splat parameters looks rather simple from the outside and doesn't rely on static values or the intricacies of argument assignments in Ruby. However, it has the huge downside that the method interface isn't clearly defined anymore. Just from looking at the method definition, we can no longer see how many arguments the method accepts but have to look into the method body. We even have to rely on custom error handling to check the number of passed arguments.
+
+As such, for one-off methods, the first option is quicker to write and has clear-enough semantics to experienced Ruby developers. The second option provides a more traditional method interface for the potential cost of a bit more checking in the method body. With a well-named default value, the intention becomes clear just from looking at the method definition. The third option however does not resemble idiomatic Ruby anymore but looks more like C or Perl where we have to deal with numeric indexes instead of well-named variables and arguments. as such, this option has a clear disadvantage to the others since it is much less intention-revealing.
+
+With that in mind, which ever variant you use, try to use one of these methods consistently throughout your module to allow people reading your code to recognize the pattern and thus to reduce the cognitive load required to understand what the code does.
+
+Most of the time, you should try to rely on "normal" default values. Using one of the techniques described in this article should generally be your last resort since they will never be as clear as a simple method definition with simple default values.
+
+*Update 2016-12-28: After some discussion on [Facebook](https://www.facebook.com/holger.just.9/posts/1198815266853010) it became clear that the motivation for why you would need these techniques is not clearly described. As such, I have added the real-world example of `Hash#fetch`. I also added the third option of using a splatted parameter.*
