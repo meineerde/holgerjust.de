@@ -118,7 +118,7 @@ with_value('foo', 'value')
 # optional: value
 ```
 
-## Using a splat parameter
+## Using a Splat Parameter
 
 A third options is to use a splat parameter in the method's definition. This accepts an unlimited number of optional arguments and provided them to the method body in an array.
 
