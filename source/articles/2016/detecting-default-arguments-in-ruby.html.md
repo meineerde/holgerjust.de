@@ -118,7 +118,7 @@ with_value('foo', 'value')
 # optional: value
 ```
 
-## Using a Splat Parameter
+## Using a Splatted Parameter
 
 A third options is to use a splat parameter in the method's definition. This accepts an unlimited number of optional arguments and provided them to the method body in an array.
 
@@ -126,7 +126,7 @@ A third options is to use a splat parameter in the method's definition. This acc
 def with_splat(*args)
   # Enforce the actually intended method interface by raising an error if too
   # many arguments were passed to the method.
-  unless 1..2.cover?(*args.size)
+  unless 1..2.cover?(args.size)
     raise ArgumentError, "wrong number of arguments (#{args.length} for 1..2)"
   end
 
