@@ -120,7 +120,7 @@ with_value('foo', 'value')
 
 ## Using a Splatted Parameter
 
-A third options is to use a splat parameter in the method's definition. This accepts an unlimited number of optional arguments and provided them to the method body in an array.
+A third option is to use a splat parameter in the method's definition. This accepts an unlimited number of optional arguments and provided them to the method body in an array.
 
 ```ruby
 def with_splat(*args)
@@ -139,7 +139,7 @@ def with_splat(*args)
 end
 ```
 
-By inspecting the `args` array, we can test whether we got an `optional` argument or not. If the array is has exactly 1 element, no optional argument was passed. If it has 2 elements, we use the second one as our `optional` value.
+By inspecting the `args` array, we can test whether we got an `optional` argument or not. If the array is has exactly 1 element, no `optional` argument was passed. If it has 2 elements, we use the second one as our `optional` value.
 
 This variant more or less resembles what Ruby itself does in its implementation of the [`Hash#fetch`](https://ruby-doc.org/core/Hash.html#method-i-fetch) method. Since the method is implemented in C, arguments are extracted and validated from the `ARGV` array passed to the method which resembles our `args` array.
 
