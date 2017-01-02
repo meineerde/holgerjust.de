@@ -89,16 +89,16 @@ with_flag('foo', 'value')
 
 Another option is to use a different special default value which we have determined to never represent a valid value. Again, this is only required if we can not come up with a "normal" default value like `nil`, `0` or an empty array or hash.
 
-In our example, we define a constant called `NO_VALUE` with an empty Object instance and use it as a default value. Since the object is not equal to any other value, you can use it as a special flag to determine that no value was passed and just compare the argument to the same `NO_VALUE` object.
+In our example, we define a constant called `UNDEFINED` with an empty Object instance and use it as a default value. Since the object is not equal to any other value, you can use it as a special flag to determine that no value was passed and just compare the argument to the same `UNDEFINED` object.
 
 ```ruby
-NO_VALUE = Object.new
+UNDEFINED = Object.new
 # => #<Object:0x007fd87284af38>
 
-def with_value(required, optional = NO_VALUE)
+def with_value(required, optional = UNDEFINED)
   puts "required: #{required}"
 
-  if optional == NO_VALUE
+  if optional.equal?(UNDEFINED)
     puts "no optional given: #{optional}"
   else
     puts "optional: #{optional}"
@@ -106,7 +106,7 @@ def with_value(required, optional = NO_VALUE)
 end
 ```
 
-When calling the method, the comparisons work as expected. As you can see, the default value is initialized with the `NO_VALUE` constant when not passing the optional argument and thus is considered to be omitted.
+When calling the method, the comparisons work as expected. As you can see, the default value is initialized with the `UNDEFINED` constant when not passing the optional argument and thus is considered to be omitted.
 
 ```ruby
 with_value('bar')
