@@ -14,6 +14,8 @@ xml.feed "xmlns" => "http://www.w3.org/2005/Atom" do
   xml.author { xml.name blog_author.name }
 
   @articles[0..9].each do |article|
+    tagline = "<p>The post <a href=\"#{h URI.join(site_url, article.url)}\">#{h article.title}</a> appeared first on <a href=\"#{h settings.casper[:blog][:url]}\">#{h settings.casper[:blog][:url].sub(%r{^https?://}, '')}</a>.</p>".html_safe
+
     xml.entry do
       xml.title article.title
       xml.link "rel" => "alternate", "href" => URI.join(site_url, article.url)
@@ -22,7 +24,7 @@ xml.feed "xmlns" => "http://www.w3.org/2005/Atom" do
       xml.updated File.mtime(article.source_file).iso8601
       xml.author { xml.name blog_author(article.data.author).name }
       xml.summary summary(article), "type" => "html"
-      xml.content article.body, "type" => "html"
+      xml.content article.body + tagline, "type" => "html"
     end
   end
 end
