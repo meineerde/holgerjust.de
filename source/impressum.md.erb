@@ -13,6 +13,14 @@ Personal contact is my preferred way of communication. If you see me, do not hes
   <%= author_email %>
 </address></p>
 
+You can also find me on various social networks, including
+
+<p><address class="profile-links-verbose" style="text-align: center">
+  <% Array(blog_author.profile_links).each do |name, opts| %>
+    <a class="icon-<%= name %>" href="<%= opts[:link] %>"><%= opts[:name] %></a>
+  <% end %>
+</address></p>
+
 If you want to send me physical mail, you can use this postal address:
 
 <p><address>
