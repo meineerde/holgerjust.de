@@ -43,11 +43,11 @@
   text-decoration: none;
 }
 
-.profile-links-verbose {
-  a {
-    margin: 0 .5em;
-  }
+.profile-links-verbose a {
+  margin: 0 .5em;
+}
 
+p, .profile-links-verbose {
   a[class^="icon-"]:before, a[class*=" icon-"]:before {
     margin-right: .25em;
   }

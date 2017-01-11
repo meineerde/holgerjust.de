@@ -13,8 +13,9 @@ I strongly believe in the values of Open Source and strive to be an
 integral part of the community by not only providing source code but also
 advice, help, and organisational support to advance the status quo.
 
-If you want to contact me, preferrably send an email to <%= author_email %>
+If you want to contact me, preferrably send an email to
+<span class="icon-mail"><span class="hidden">E-Mail:</span></span> <%= author_email %>
 in either German or English. I am
-[<%= blog_author.profile_links[:github][:user] %>](<%= blog_author.profile_links[:github][:link] %>) on GitHub and
-[@<%= blog_author.profile_links[:twitter][:user] %>](<%= blog_author.profile_links[:twitter][:link] %>) on Twitter.
-I try to help people on [Stack Overflow](<%= blog_author.profile_links[:stackoverflow][:link] %>).
+<a class="icon-github" href="<%= blog_author.profile_links[:github][:link] %>"><%= blog_author.profile_links[:github][:user] %></a> on GitHub and
+<a class="icon-twitter" href="<%= blog_author.profile_links[:twitter][:link] %>">@<%= blog_author.profile_links[:twitter][:user] %></a> on Twitter.
+I try to help people on <a class="icon-stackoverflow" href="<%= blog_author.profile_links[:stackoverflow][:link] %>"><%= blog_author.profile_links[:stackoverflow][:name] %></a>.
