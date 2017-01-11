@@ -1,10 +1,11 @@
 @font-face {
   font-family: 'icons';
-  src: url('../fonts/icons.eot?82832280');
-  src: url('../fonts/icons.eot?82832280#iefix') format('embedded-opentype'),
-       url('../fonts/icons.woff?82832280') format('woff'),
-       url('../fonts/icons.ttf?82832280') format('truetype'),
-       url('../fonts/icons.svg?82832280#icons') format('svg');
+  src: url('../fonts/icons.eot?43660247');
+  src: url('../fonts/icons.eot?43660247#iefix') format('embedded-opentype'),
+       url('../fonts/icons.woff2?43660247') format('woff2'),
+       url('../fonts/icons.woff?43660247') format('woff'),
+       url('../fonts/icons.ttf?43660247') format('truetype'),
+       url('../fonts/icons.svg?43660247#icons') format('svg');
   font-weight: normal;
   font-style: normal;
 }
@@ -33,3 +34,4 @@
 .icon-xing:before { content: '\f60c'; }
 .icon-mail:before { content: '\f60d'; }
 .icon-angle-left:before { content: '\f60e'; }
+.icon-instagram:before { content: '\f60e'; }

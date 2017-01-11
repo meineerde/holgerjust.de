@@ -89,6 +89,12 @@
       "css": "stats",
       "code": 62982,
       "src": "websymbols"
+    },
+    {
+      "uid": "4c1ef492f1d2c39a2250ae457cee2a6e",
+      "css": "instagram",
+      "code": 62991,
+      "src": "fontawesome"
     }
   ]
 }
