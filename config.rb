@@ -107,6 +107,11 @@ set :casper, {
           user: 'meineerde',
           link: 'https://twitter.com/meineerde'
         },
+        instagram: {
+          name: 'Instagram',
+          user: 'holger_just',
+          link: 'https://www.instagram.com/holger_just/'
+        },
         github: {
           name: 'GitHub',
           user: 'meineerde',
