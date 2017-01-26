@@ -27,7 +27,7 @@
       %footer.post-footer
         - if gravatar?
           %figure.author-image
-            %a.img{href: author_path, style: "background-image: url(#{gravatar})"}
+            %a.img{href: author_path, style: "background-image: url(#{gravatar(nil, size: 68)}); background-image: image-set(url(#{gravatar(nil, size: 68)}) 1x, url(#{gravatar(nil, size: 68*2)}) 2x, url(#{gravatar(nil, size: 68*2)}) 3x); background-image: -webkit-image-set(url(#{gravatar(nil, size: 68)}) 1x, url(#{gravatar(nil, size: 68*2)}) 2x, url(#{gravatar(nil, size: 68*2)}) 3x)"}
               %span.hidden #{blog_author.name}'s Picture
         %section.author
           %h4

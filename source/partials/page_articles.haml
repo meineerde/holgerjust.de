@@ -12,7 +12,7 @@
         = link_to '&raquo; Read more', article, class: 'read-more'
     %footer.post-meta
       - if gravatar?
-        %img.author-thumb{src: gravatar(article.data.author, size: 24), alt: blog_author(article.data.author).name, nopin: 'nopin'}
+        %img.author-thumb{src: gravatar(article.data.author, size: 24), srcset: "#{gravatar(article.data.author, size: 24)} 1x, #{gravatar(article.data.author, size: 24*2)} 2x, #{gravatar(article.data.author, size: 24*3)} 3x", alt: blog_author(article.data.author).name, nopin: 'nopin'}
       %a{href: author_path(article.data.author)}= blog_author(article.data.author).name
       - if tags?(article)
         on #{tags(article)}

@@ -16,7 +16,7 @@ cover_license: '[Cover Image](https://unsplash.com/photos/2ShvY8Lf6l0) by [Lukas
 %section.author-profile.inner
   - if gravatar?
     %figure.author-image
-      .img{style: "background-image: url(#{gravatar(author, size: 114)})"}
+      .img{style: "background-image: url(#{gravatar(author, size: 114)}); background-image: image-set(url(#{gravatar(author, size: 114)}) 1x, url(#{gravatar(author, size: 114*2)}) 2x, url(#{gravatar(author, size: 114*3)}) 3x); background-image: -webkit-image-set(url(#{gravatar(author, size: 114)}) 1x, url(#{gravatar(author, size: 114*2)}) 2x, url(#{gravatar(author, size: 114*3)}) 3x);"}
         %span.hidden #{blog_author(author).name}'s Picture
   %h1.author-title= blog_author(author).name
   .author-bio= partial("author/#{author.parameterize}")
