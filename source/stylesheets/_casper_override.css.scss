@@ -40,6 +40,14 @@
     min-height: 180px;
 }
 
+.post-footer figure.author-image {
+  // Set the margin to what is was before 44989142 to properly position the
+  // author image below a post
+  margin: 0 0 0 -40px;
+  // Yes, even on small screens
+  top: -40px;
+}
+
 .author-bio {
   text-align: left;
 }
