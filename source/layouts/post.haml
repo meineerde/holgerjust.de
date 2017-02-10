@@ -44,15 +44,6 @@
               %a{href: author_path} more posts
               by this author.
 
-          - if blog_author.location.present? || blog_author.website.present?
-            .author-meta
-              - if blog_author.location.present?
-                %span.author-location.icon-location= blog_author.location
-              = partial(:profile_links, locals: {author: blog_author.name})
-              - if blog_author.website.present?
-                %span.author-link.icon-link
-                  %a{href: blog_author.website}= blog_author.website.sub(%r{^https?://}, '')
-
         %section.share
           %h4 Share this post
           %a.icon-twitter{href: twitter_url, rel: 'nofollow', onclick: "window.open(this.href, 'twitter-share', 'width=550,height=235');return false;"}
@@ -63,6 +54,14 @@
             %span.hidden Google+
           %a.icon-mail{href: mail_url, rel: 'nofollow'}
             %span.hidden Email
+
+        .author-meta
+          - if blog_author.location.present?
+            %span.author-location.icon-location= blog_author.location
+          = partial(:profile_links, locals: {author: blog_author.name})
+          - if blog_author.website.present?
+            %span.author-link.icon-link
+              %a{href: blog_author.website}= blog_author.website.sub(%r{^https?://}, '')
 
   %aside.read-next
     - if prev_article = current_article.previous_article
