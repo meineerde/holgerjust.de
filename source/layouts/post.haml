@@ -12,15 +12,18 @@
       %header.post-header
         %h1.post-title= current_article.title
         %section.post-meta
-          published on
+          - if gravatar?
+            %img.author-thumb{src: gravatar(nil, size: 24), srcset: "#{gravatar(nil, size: 24)} 1x, #{gravatar(nil, size: 24*2)} 2x, #{gravatar(nil, size: 24*3)} 3x", alt: blog_author.name, nopin: 'nopin'}
+          %a{href: author_path}= blog_author.name
+          - if tags?
+            wrote about #{tags}
+          on
           %time.post-date{datetime: current_article.date.strftime('%Y-%m-%d')}
             = current_article.date.strftime(blog_settings.date_format)
-          - if tags?
-            about #{tags}
-          |
-          - words = Nokogiri::HTML::DocumentFragment.parse(yield).search('.//text()').map(&:text).join(' ').split.count
-          = [1, (words / 200.0).round].max # average reading speed as of http://EzineArticles.com/2298503
-          min read
+          %span.time-to-read
+            - words = Nokogiri::HTML::DocumentFragment.parse(yield).search('.//text()').map(&:text).join(' ').split.count
+            = [1, (words / 200.0).round].max # average reading speed as of http://EzineArticles.com/2298503
+            min read
 
       %section.post-content= yield
 

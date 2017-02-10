@@ -18,6 +18,22 @@
   animation: none 0s;
 }
 
+.post-template .post-meta,
+.page-template .post-meta {
+  margin: 1.75rem 0 0 0;;
+}
+
+.post-template .post-date,
+.page-template .post-date {
+  font-size: 1.5rem;
+}
+
+.time-to-read {
+  margin-left: 8px;
+  padding-left: 12px;
+  border-left: #d5dbde 1px solid;
+}
+
 // Golden ratio for post header images
 .post-head.main-header {
     height: 61vh;
