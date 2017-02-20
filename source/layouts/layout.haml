@@ -59,4 +59,4 @@
           - if current_page.data.cover_license.present?
             = '| ' + markdown(current_page.data.cover_license)
 
-    = javascript_include_tag :application
+    = javascript_include_tag :application, async: true

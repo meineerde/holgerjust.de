@@ -1,5 +1,5 @@
 (function() {
-  document.addEventListener('DOMContentLoaded', function() {
+  (function() {
     document.querySelectorAll('.menu-button, .nav-cover, .nav-close').forEach(function(element) {
       element.addEventListener('click', function(event) {
         event.preventDefault();
@@ -12,7 +12,7 @@
         document.body.className = body_classes.join(' ');
       });
     });
-  }, false);
+  })();
 
   // slightly adapted from http://stackoverflow.com/a/26798337/421705
   window.requestAnimFrame = (function(){
@@ -74,7 +74,7 @@
     tick();
   }
 
-  document.addEventListener('DOMContentLoaded', function() {
+  (function() {
     document.querySelectorAll('.scroll-down').forEach(function(element) {
       element.addEventListener('click', function(event) {
         event.preventDefault();
@@ -97,5 +97,5 @@
         }
       });
     });
-  }, false);
+  })();
 })();

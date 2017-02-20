@@ -16,7 +16,7 @@
     return buf.join('');
   };
 
-  document.addEventListener("DOMContentLoaded", function() {
+  (function() {
     var elements = document.getElementsByClassName("hidden-email");
     Array.prototype.forEach.call(elements, function(element){
       var encoded = element.getAttribute("data-email");
@@ -29,5 +29,5 @@
       var link = "<" + "a h" + "ref=\"mai" + "lto:" + decoded + "\">" + decoded + "</" + "a>";
       element.innerHTML = link;
     });
-  }, false);
+  })();
 })();
