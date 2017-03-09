@@ -14,3 +14,6 @@ gem 'redcarpet', '~> 3.3.2'
 
 # For "summary"-Helper
 gem 'nokogiri', '~> 1.6.6.2'
+
+# Images
+gem 'middleman-webp', '~> 0.3.2'

@@ -30,8 +30,8 @@ ExpiresDefault "access plus 1 year"
 </FilesMatch>
 
 # Unset the Vary: Host header inserted by global Uberspace config
-# Append Vary: Accept-Encoding due to optionsl gziped content
-Header set Vary Accept-Encoding
+# Append Vary: Accept due to optional gziped content
+Header set Vary Accept
 
 # Add security related headers
 Header set X-Frame-Options "DENY"
@@ -58,3 +58,10 @@ RewriteRule ^favicon.ico$ /images/favicon.ico
 RewriteCond %{HTTP:Accept-Encoding} \b(x-)?gzip\b
 RewriteCond %{REQUEST_FILENAME}\.gz -s
 RewriteRule ^(.+) /$1\.gz [QSA]
+
+# Check if browser support WebP images
+RewriteCond %{HTTP:Accept} image/webp
+RewriteCond %{REQUEST_FILENAME}\.webp -s
+RewriteRule ^(.+) /$1\.webp [QSA]
+
+AddType image/webp .webp

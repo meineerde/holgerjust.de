@@ -210,6 +210,14 @@ set :haml, {
   escape_attrs: :once
 }
 
+activate :webp do |webp|
+  webp.conversion_options = {
+    'images/**/*.{png,gif}' => {lossless: true},
+    'images/**/*.{jpg,jpeg}' => {q: 100}
+  }
+  webp.append_extension = true
+end
+
 set :css_dir, 'stylesheets'
 set :js_dir, 'javascripts'
 set :images_dir, 'images'
