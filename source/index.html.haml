@@ -6,6 +6,9 @@ cover_license: '[Cover Image](https://unsplash.com/photos/2ShvY8Lf6l0) by [Lukas
 
 %header.main-header{cover}
   %nav.main-nav.overlay.clearfix
+    - if page_class == 'paged'
+      %a.home-button.icon-angle-left{href: home_path}
+        %span.word Home
     - if blog_settings.navigation
       %a.menu-button.icon-menu{href: '#'}
         %span.word Menu
