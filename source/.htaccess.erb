@@ -30,8 +30,10 @@ ExpiresDefault "access plus 1 year"
 </FilesMatch>
 
 # Unset the Vary: Host header inserted by global Uberspace config
-# Append Vary: Accept due to optional gziped content
-Header set Vary Accept
+# Append Vary: Accept-Encoding due to optional gziped content
+Header set Vary Accept-Encoding
+# Append Vary: Accept due to optional optimized image types
+Header append Vary Accept
 
 # Add security related headers
 Header set X-Frame-Options "DENY"
