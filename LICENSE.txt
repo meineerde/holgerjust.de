@@ -1,7 +1,7 @@
-Copyright (c) 2015 Holger Just
+Copyright (c) 2015-2017 Holger Just
 
 This repository contains content licensed under various licenses depending on
-the type and location of the content. Please see source.impressum.md.erb for
+the type and location of the content. Please see source/contact.md.erb for
 details.
 
 The source code of this website (not including content covered by other

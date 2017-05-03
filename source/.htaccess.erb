@@ -56,6 +56,11 @@ RewriteRule .* https://<%= URI.parse(casper[:blog][:url]).host %>%{REQUEST_URI} 
 
 RewriteRule ^favicon.ico$ /images/favicon.ico
 
+# Persistent Rewrites
+RewriteRule ^(.+/)?index.html$ /$1 [R=301,L]
+
+RewriteRule ^impressum/?$ /contact/ [R=301,L]
+
 # Use gziped content if possible
 RewriteCond %{HTTP:Accept-Encoding} \b(x-)?gzip\b
 RewriteCond %{REQUEST_FILENAME}\.gz -s
