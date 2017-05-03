@@ -16,9 +16,10 @@ cover_license: '[Cover Image](https://unsplash.com/photos/2ShvY8Lf6l0) by [Lukas
     .main-header-content.inner
       %h1.page-title= blog_settings.name
       %h2.page-description= blog_settings.description
-      %section.byline
-        %span= "by #{link_to blog_author.name, author_path}"
-        = partial(:profile_links, locals: {author: blog_author.name})
+      - unless page_class == 'paged'
+        %section.byline
+          %span= "by #{link_to blog_author.name, author_path}"
+          = partial(:profile_links, locals: {author: blog_author.name})
 
   %a.scroll-down.icon-arrow-left{href: '#content', data: {offset: '45'}}
     %span.hidden Scroll Down
