@@ -120,10 +120,6 @@ set :casper, {
         stackoverflow: {
           name: 'Stack Overflow',
           link: 'https://stackoverflow.com/users/421705/holger-just'
-        },
-        xing: {
-          name: 'XING',
-          link: 'https://www.xing.com/profile/Holger_Just'
         }
       }
     }
