@@ -52,7 +52,10 @@
               return 0.5 * Math.pow(pos, 5);
             }
             return 0.5 * (Math.pow((pos - 2), 5) + 2);
-          }
+          },
+          easeOutQuint: function(pos) {
+            return (Math.pow((pos-1), 5) +1);
+          },
         };
 
     // add animation loop
@@ -88,12 +91,12 @@
 
         if (offset) {
           toMove = parseInt(offset);
-          scrollToY(elementBottom + toMove, speed, 'easeInOutQuint')
+          scrollToY(elementBottom + toMove, speed, 'easeOutQuint')
         } else if (position) {
           toMove = parseInt(position);
-          scrollToY(toMove, speed, 'easeInOutQuint')
+          scrollToY(toMove, speed, 'easeOutQuint')
         } else {
-          scrollToY(elementBottom, speed, 'easeInOutQuint')
+          scrollToY(elementBottom, speed, 'easeOutQuint')
         }
       });
     });
