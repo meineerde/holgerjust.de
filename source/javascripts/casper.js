@@ -29,6 +29,12 @@
     // speed: time in pixels per second
     // easing: easing equation to use
 
+    // Don't scroll slowly if the user requested reduced motion
+    if (matchMedia('(prefers-reduced-motion)').matches) {
+      window.scrollTo(0, scrollTargetY);
+      return;
+    }
+
     var scrollY = window.scrollY,
         scrollTargetY = scrollTargetY || 0,
         speed = speed || 2000,
