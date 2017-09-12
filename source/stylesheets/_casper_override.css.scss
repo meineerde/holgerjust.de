@@ -24,8 +24,13 @@
 }
 
 .post-template .post-date,
-.page-template .post-date {
+.page-template .post-date,
+.post-meta .post-date {
   font-size: 1.5rem;
+}
+
+.post-date {
+  text-transform: none;
 }
 
 .time-to-read {
