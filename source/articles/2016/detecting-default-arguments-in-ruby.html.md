@@ -69,7 +69,7 @@ def with_flag(required, optional = omitted = true)
 end
 ```
 
-Now when calling this method, when actually passing a value to the `optional` parameter, it will be set normally. The default part, i.e. the `omitted = true` will not be executed here. Instead, omitted will be initialized with `nil`.
+Now when calling this method and actually passing a value to the `optional` parameter, it will be set normally. The default part, i.e. `omitted = true` will not be executed here. Instead, the `omitted` paremeter will be initialized with `nil`.
 
 On the other hand, when omitting the argument and calling the method as `with_flag('value')`, the default part will be executed and `omitted` as well as `optional` will be set to `true`. This allows to determine whether an argument was passed by checking the `omitted` flag. If it is `nil`, an argument was passed. If it is the final default value (`true` in our example) it was however omitted:
 
@@ -120,7 +120,7 @@ with_value('foo', 'value')
 
 ## Using a Splatted Parameter
 
-A third option is to use a splat parameter in the method's definition. This accepts an unlimited number of optional arguments and provided them to the method body in an array.
+A third option is to use a splat parameter in the method's definition. This accepts an unlimited number of optional arguments and provides them to the method body in an array.
 
 ```ruby
 def with_splat(*args)
@@ -141,7 +141,7 @@ end
 
 By inspecting the `args` array, we can test whether we got an `optional` argument or not. If the array is has exactly 1 element, no `optional` argument was passed. If it has 2 elements, we use the second one as our `optional` value.
 
-This variant more or less resembles what Ruby itself does in its implementation of the [`Hash#fetch`](https://ruby-doc.org/core/Hash.html#method-i-fetch) method. Since the method is implemented in C, arguments are extracted and validated from the `ARGV` array passed to the method which resembles our `args` array.
+This variant more or less resembles what Ruby itself does in its implementation of the [`Hash#fetch`](https://ruby-doc.org/core/Hash.html#method-i-fetch) method for example. Since the method is implemented in C, arguments are extracted and validated from the `ARGV` array passed to the method which resembles our `args` array.
 
 ## Which variant to use?
 
