@@ -13,7 +13,13 @@ cover_license: '[Cover Image](https://unsplash.com/photos/2ShvY8Lf6l0) by [Lukas
         %span.word Menu
   .vertical
     .main-header-content.inner
-      %h1.page-title= tagname
+      %h1.page-title
+        - case page_type
+        - when 'tag'
+          = tagname
+        - when 'year'
+          Archive for
+          = year
       %h2.page-description= pluralize(page_articles.count, 'post')
 
 %main#content.content{role: :main}

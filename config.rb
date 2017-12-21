@@ -60,7 +60,8 @@ activate :blog do |blog|
   blog.day_link = "{year}/{month}/{day}.html"
   blog.default_extension = ".md.erb"
 
-  blog.tag_template = "tag.html"
+  blog.tag_template = "list.html"
+  blog.year_template = "list.html"
   # blog.calendar_template = "calendar.html"
 
   # Enable pagination
