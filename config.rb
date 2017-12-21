@@ -82,7 +82,7 @@ set :casper, {
     url: 'https://holgerjust.de',
     name: 'Everything is broken',
     description: 'Stories about Life and Technology',
-    date_format: '%B %d, %Y',
+    date_format: '%B %-d, %Y',
     navigation: true,
     default_license: 'cc_by_sa',
     author: 'Holger Just'
