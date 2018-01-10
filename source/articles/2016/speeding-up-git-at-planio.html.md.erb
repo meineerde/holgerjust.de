@@ -40,7 +40,7 @@ On Gitosis' side, I was able to almost completely replace the existing authentic
 
 Developing the API in Redmine and integrating it into Gitosis took me about 3 days. This included extensive correctness and performance tests to ensure that we do in fact enforce the defined permissions and can do this fast. In the end, we are now able to respond to an authorization request in about 300 ms end-to-end which is about 20 times faster than we were able to pull off during peak usage last week with the old authentication mechanism.
 
-<blockquote class="twitter-tweet" data-lang="en" data-align="center" data-cards="hidden"><p lang="en" dir="ltr">The hard work on our Git hosting infrastructure pays off: Overall Git access is now 20x faster than last week! <a href="https://t.co/fmM0b50DF5">https://t.co/fmM0b50DF5</a></p>&mdash; Planio (@planio) <a href="https://twitter.com/planio/status/694548969096114177">February 2, 2016</a></blockquote>
+<blockquote class="twitter-tweet" data-lang="en" data-align="center" data-cards="hidden" data-dnt="true"><p lang="en" dir="ltr">The hard work on our Git hosting infrastructure pays off: Overall Git access is now 20x faster than last week! <a href="https://t.co/fmM0b50DF5">https://t.co/fmM0b50DF5</a></p>&mdash; Planio (@planio) <a href="https://twitter.com/planio/status/694548969096114177">February 2, 2016</a></blockquote>
 <script async src="//platform.twitter.com/widgets.js" charset="utf-8"></script>
 
 Directly after the deployment of the new authentication mechanism, the load of the backend servers dropped back from about 40 to just below 1, which is nice because we now get much less of these alarming monitoring pings about melting servers.
